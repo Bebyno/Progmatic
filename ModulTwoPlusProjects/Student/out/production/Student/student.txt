@@ -1,0 +1,4 @@
+Lajoska:3,1,4,2,3
+Csabika:2,3,4,5,1,2,3
+Petruska:4,5,4,5,4,1
+Varsói Bélané Kehely Rozalinda:1,1,1,1,1,1,1

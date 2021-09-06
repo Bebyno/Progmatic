@@ -1,0 +1,54 @@
+TV-műsor
+
+Készíts programot, amely egy TV-t szimulál!
+A TV-n vannak különböző csatornák, a csatornákon pedig különböző műsorok (filmek, sorozatok, hírek, kibeszélő show-k stb.).
+A programod válaszoljon a lenti kérdésekre!
+
+A csatornák adatait és a rajtuk megtekinthető műsorok kódját a model.txt nevű fájl tartalmazza. A műsorok adatait pedig a programmes.txt.
+
+Megjegyzés: a csatornákhoz tartozó “műsorjegyzék” a csatorna egész repertoárját jelenti - tehát nem azt, amit egy nap alatt leadnak, hanem amiből válogathatnak.
+
+A channels.txt tartalma:
+csatorna neve, ingyenes-e, műsorok kódja
+A programmes.txt tartalma:
+műsor kódja, teljes címe, műfaja, korhatára (ha nem korhatáros, akkor ez “NULL”)
+
+(Figyelj oda a fájlokban az adatok közötti elválasztó jelekre!)
+
+---------------------------------------------
+
+Kérdések
+
+1.	Melyik csatorna (vagy csatornák) adja (vagy adják) a legtöbb műsort? ok
+2.	És melyik (vagy melyek) a legkevesebbet? ok
+3.	Melyik műsor(ok) szerepel(nek) a legtöbb csatornán? ok
+4.	És melyik (vagy melyek) a legkevesebben? ok
+5.	Van olyan műsor, amelyet csak egyetlen csatornán sugároznak? Ha igen, akkor melyik az? ok
+6.	Átlagosan hány műsor jut egy csatornára? ok
+7.	Egy-egy csatornán hány különböző műfaj található? (A programod tegye lehetővé, hogy ezt az adatot bármelyik csatornáról lekérdezhessük.)
+8.	Egy-egy csatorna milyen műsorokat ad? (A műsorok teljes címe, műfaja és korhatára érdekes.) ok
+9.	Egy-egy műsor mely csatornákon érhető el? (A csatornák neve az érdekes.) ok
+10.	Összesen hány darab “18-as karikás” műsor található a csatornákon? (Ha ugyanaz a műsor több csatornán is szerepel, akkor az egynek számít.)
+11.	Mekkora az ingyenes és a nem ingyenes csatornák aránya?
+12.	Van olyan csatorna, amely csak “18-as karikás” műsorokat ad?
+13.	És van olyan csatorna, amelyik csak korhatár nélküli műsorokat ad?
+14.	Hány műfaj van? És műfajonként hány műsor van?
+15.	Melyik műfajhoz tartozik a legtöbb műsor?
+16.	Melyik két csatorna között van a legnagyobb “műsor-átfedés”? (“műsor-átfedés” = az egyik és a másik csatorna is adja ugyanazt a műsort)
+
+
+Bónusz
+
+A programod tegye lehetővé a TV be- és kikapcsolását, továbbá a csatornák közötti “szörfözést”.
+A programodnak tudnia kell, hogy a képzeletbeli TV-néződ számára mely csatornák elérhetőek (szóval előfizetett-e vajon azokra a csatornákra, amelyek nem ingyenesek).
+Amikor a képzeletbeli TV-néző egy új csatornára kapcsol, a programod írja ki, hogy milyen műsor megy éppen azon a csatornán! (Megjegyzés: Nem kell a valóságot teljesen szimulálnod! A programod nyilván gyorsabban fut, mint amennyi ideig egy film tart… legalábbis remélhetőleg. De a programodban sugárzott műsorok ideje is lehet ennek megfelelően gyorsabb.)
+Ügyelj arra, hogy valamelyik műsor korhatáros! (Tehát a programodnak tudnia kell a képzeletbeli TV-néző korát is.)
+
+
+Segítség a feladatokhoz
+
+Készítsd el azokat az osztályokat, amelyek szükségesek a TV szimulálásához!
+Olvasd be, és kezeld a fájlokat!
+Írj metódusokat, amelyek válaszolnak a kérdésekre!
+
+Tipp a bónuszhoz: Kibővítheted a programodat egy olyan osztállyal, amely a TV-nézőt “képviseli”. Az, hogy a TV-néző TV-jén hány csatorna elérhető, lehet akár véletlenszerű is.

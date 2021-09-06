@@ -1,0 +1,38 @@
+két class :
+
+ - pirate (footsoldier)
+    -- spec. sold. (captain)
+ - ship ()
+
+- pirates field:
+. name, strenght, drunkLevel, canFight, happynes, terifedLvL
+| fight, drink,
+
+- Captain field:
+. ship, runOwned,
+|giveRumToPirate (happynes), executePoorPrivate??? ,
+@Override fight (Pirate enemy)
+
+- Ship field:
+. name , attackPower, state, List<Pirate> crew
+| attack
+
+BattleField
+"Csata zajlása, itt írjuk majd a kódokat"
+
+
+Csata menet, elöször mindig hajó aztán földi.
+
+ittaság:
+1lvl : nőveli az erőt +10
+2lvl : növeli az erőt +5
+3lvl : csökkenti az életerőt -10 és az erőt -10
+
+
+Terv:
+Ha a kapitány meghal vége a csatának
+2 csapat úgy harcol, hogy a túlélő átkerül egy másik listába
+a kalozók random harcoljanak egymás ellen (2 különbőző team)- 1-10 dob 1 számot mindegyik és az
+azonosak harcolnak egymás ellen.
+                --Páratlanság problematika
+

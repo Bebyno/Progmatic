@@ -1,0 +1,2 @@
+ txt tartalma:
+csapat neve, soför, autotípus,

@@ -1,0 +1,8 @@
+1. Team; Daniel Riccardo; Audi;
+2. Team; Lando Norris; Ferrari;
+3. Team; Luke SkyWalker; Mercedes;
+4. Team; Sebastian Vettel; BMW;
+5. Team; Nicolas Lafiti; Porsche;
+6. Team; Kimi Raikkonen; Toyota;
+7. Team; Fernando Alonso; Subaru;
+8. Team; Lewis Hamilton; Jaguar;

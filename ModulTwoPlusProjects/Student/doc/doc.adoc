@@ -1,0 +1,7 @@
+
+     * Készíts adatstruktúrát, amelyben diákok nevét és a tanév közben szerzett osztályzataikat tudod tárolni!
+     * Biztosra veheted, hogy a diákok neve egyedi, az osztályzataik pedig 1 és 5 közötti szám
+     * (beleértve a két szélső értéket). Azonban azt előre nem tudhatod, hogy melyik diák hány osztályzatot szerez
+     * a tanévben.
+     * Töltsd fel néhány teszt-adattal az adatstruktúrádat! Ezután számíts átlagot mindegyik diáknál.
+     * (Ügyelj arra, hogy az átlag minél pontosabb legyen, ne kerekített!)
