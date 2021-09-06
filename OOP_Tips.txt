@@ -1,0 +1,34 @@
+* mindig az adott osztály felelőssége, hogy a belső állapota (változói) értelmes állapotban legyenek
+  * emiatt minden függvény (setter is) csak értelmes állapotba vigyen
+  * ha egy folyamat nem visszafordítható, ne settert, hanem sima "akció" függvényt csinálj (setCracked(true) vs crack())
+  * setterek helyett amúgy is érdemes értelmes műveleteket definiálni, mert olvashatóbb lesz a kód + megelőzhető a következő pontban leírt helyzet
+  * ne végezzünk műveletet egy osztályon úgy, hogy kívül van a logika, és csak hívogatjuk a settereket (ennyi erővel lehetnének public változók)
+    * azért nem, mert nem tudjuk biztosítani, hogy értelmes állapotban lehet csak az osztály
+* egy osztálynak mindig egy jól körülhatárolható feladata van
+  * az ehhez a feladathoz tartozó állapot privát változókban van eltárolva, nem helyezzük ki osztályon kívülre az állapotot
+  * cserébe továbboszthatja a feladatai egy részét más osztályoknak, amiknek a példányait tartalmazza
+    * pl. egy játékban a player objektum mozgása a Player class feladata, de a logika hozzá egy Mover classban van implementálva, és a player egy private változója a Mover mover
+* egy függvénynek mindig egy jól körülhatárolható feladata van
+  * és ez a feladat tökéletesen egybeesik a nevével
+    * ha szükséges, inkább adjunk EXTRA hosszú neveket, pl. peelAndChopIngredientThenCook()
+    * a természetes/logikus következményt NEM kell beleírni a nevébe, pl. a shoot() természetes következménye, hogy ha eltalálsz valakit, megsérül
+* egy konstruktor nem felelős az ősosztályban lévő változókért, azokért az ősosztály konstruktora a felelős
+  * ezért kötelező meghívni mindig az ősosztály egy konstruktorát
+  * több konstruktort is lehet létrehozni, de mindegyik ugyanúgy értelmes állapotba hozza az objektumot
+    * a konstruktorok egymást is tudják hívni (pl egy paraméteres meghívja a paraméter nélkülit, és aztán kezeli a paramétert)
+  * egy leszármazott osztály csak azért a kiegészítésért felelős, amit ő rakott hozzá
+  * ha teljesen megváltoztatja az ősosztály működését, akkor mindenért, de akkor minek ősosztály?
+* olyan függvényeket, amik más leszármazottaknak is hasznosak lehetnek, tegyük az ősosztályba
+* használjuk az ősosztály függvényeit, ahol lehet (ha pl a toString() egy része azonos az ősosztályban lévővel, hívjunk super.toString()-et)
+* mindig fel kell tenni a kérdést minden tagváltozó/tagfüggvény bevezetésekor, hogy tényleg az adott osztály felelőssége-e
+  * nem rakjuk bele a nem beleillő dolgokat, mert hirtelen úgy kényelmes, mert később mindig szívást eredményez
+* a virtual/override arra való, ha ugyanazt a dolgot a leszármazott máshogy csinálja
+  * az animal move függvénye kígyóknál slither, kutyáknál walk
+* nem tilos az instanceof használata, de általában sokkal jobb megoldás, ha override-olt függvényeket használunk
+  * pl. a knife.doYourThing(ingredient) függvénye 
+    * A) végigtesztelheti, hogy a kapott paraméter milyen típusú (egg vagy onion vagy paprika), és az alapján meghívja a peel, chop, crack stb függvényeket
+    * B) az Ingredient osztálynak van egy interactWithKnife() függvénye, ami minden leszármazottban a megfelelő függvényt hívja megelőzhető
+    * a B megoldás szinte mindig sokkal jobb!!!
+
+  
+  
