@@ -18,18 +18,18 @@ public class Battlefield {
     List<Captain> captainList = new ArrayList<>();
     List<Pirate> allPirate = new ArrayList<>();
 
-    Ship shipTeamA = new Ship("Black Pearl", ShipState.shattered, Ateam);
-    Ship shipTeamB = new Ship("White Pearl", ShipState.goodCondition, Bteam);
+    Ship shipTeamA = new Ship("Black Pearl", ShipState.SHATTERED, Ateam);
+    Ship shipTeamB = new Ship("White Pearl", ShipState.GOODCONDITION, Bteam);
 
     public void fillingTheCrews() {
 
-        Pirate james = new Pirate("James", DrunkLvL.pickled, true, FootSoldier.weak);
-        Pirate joe = new Pirate("Joe", DrunkLvL.drunk, true, FootSoldier.strong);
-        Pirate joly = new Pirate("Joly", DrunkLvL.clearHeaded, true, FootSoldier.normal);
-        Pirate Bill = new Pirate("Bill", DrunkLvL.clearHeaded, true, FootSoldier.normal);
-        Pirate jack = new Pirate("Jack", DrunkLvL.drunkAsHell, true, FootSoldier.weak);
-        Pirate will = new Pirate("Will", DrunkLvL.drunk, true, FootSoldier.strong);
-        Captain blackBeard = new Captain("BlackBeard", DrunkLvL.clearHeaded, true, shipTeamA, 3);
+        Pirate james = new Pirate("James", DrunkLvL.PICKLED, true, FootSoldier.WEAK);
+        Pirate joe = new Pirate("Joe", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
+        Pirate joly = new Pirate("Joly", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
+        Pirate Bill = new Pirate("Bill", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
+        Pirate jack = new Pirate("Jack", DrunkLvL.DRUNKASHELL, true, FootSoldier.WEAK);
+        Pirate will = new Pirate("Will", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
+        Captain blackBeard = new Captain("BlackBeard", DrunkLvL.CLEARHEADED, true, shipTeamA, 3);
         Ateam.add(james);
         Ateam.add(joe);
         Ateam.add(joly);
@@ -38,13 +38,13 @@ public class Battlefield {
         Ateam.add(will);
         Ateam.add(blackBeard);
 
-        Pirate bob = new Pirate("Bob", DrunkLvL.pickled, true, FootSoldier.weak);
-        Pirate zoro = new Pirate("Zoro", DrunkLvL.drunk, true, FootSoldier.strong);
-        Pirate brad = new Pirate("Brad", DrunkLvL.clearHeaded, true, FootSoldier.normal);
-        Pirate aladin = new Pirate("Aladin", DrunkLvL.drunkAsHell, true, FootSoldier.weak);
-        Pirate lajos = new Pirate("Lajcsi", DrunkLvL.clearHeaded, true, FootSoldier.normal);
-        Pirate wilmos = new Pirate("Wilmos", DrunkLvL.drunk, true, FootSoldier.strong);
-        Captain ironBeard = new Captain("IronBeard", DrunkLvL.clearHeaded, true, shipTeamB, 3);
+        Pirate bob = new Pirate("Bob", DrunkLvL.PICKLED, true, FootSoldier.WEAK);
+        Pirate zoro = new Pirate("Zoro", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
+        Pirate brad = new Pirate("Brad", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
+        Pirate aladin = new Pirate("Aladin", DrunkLvL.DRUNKASHELL, true, FootSoldier.WEAK);
+        Pirate lajos = new Pirate("Lajcsi", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
+        Pirate wilmos = new Pirate("Wilmos", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
+        Captain ironBeard = new Captain("IronBeard", DrunkLvL.CLEARHEADED, true, shipTeamB, 3);
         Bteam.add(bob);
         Bteam.add(zoro);
         Bteam.add(brad);

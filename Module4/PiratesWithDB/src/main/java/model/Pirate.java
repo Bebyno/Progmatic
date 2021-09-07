@@ -3,7 +3,7 @@ package model;
 import enums.DrunkLvL;
 import enums.FootSoldier;
 
-import static enums.FootSoldier.captain;
+import static enums.FootSoldier.CAPTAIN;
 
 public class Pirate {
 
@@ -14,23 +14,24 @@ public class Pirate {
         boolean canFight;
         FootSoldier status;
 
-        public Pirate(String name, DrunkLvL drunkness, boolean canFight,FootSoldier status) {
-            this.name = name;
-            this.drunkness = drunkness;
-            this.canFight = canFight;
-            this.status = status;
-            status();
-            drunkLVL();
-        }
+    public Pirate(String name, DrunkLvL drunkness,boolean canFight,FootSoldier status) {
+        this.name = name;
+        this.drunkness = drunkness;
+        this.canFight = canFight;
+        this.status = status;
+        status();
+        drunkLVL();
+    }
+
 
         public void status(){
-            if(status == FootSoldier.weak){
+            if(status == FootSoldier.WEAK){
                 health += 50;
                 strength += 10;
-            } else if(status == FootSoldier.normal){
+            } else if(status == FootSoldier.NORMAL){
                 health += 90;
                 strength += 40;
-            } else if((status == FootSoldier.strong)){
+            } else if((status == FootSoldier.STRONG)){
                 health += 100;
                 strength += 50;
             }
@@ -42,11 +43,11 @@ public class Pirate {
 
         public void drunkLVL() {
 
-            if (drunkness == DrunkLvL.pickled) {
+            if (drunkness == DrunkLvL.PICKLED) {
                 strength += 5;
-            } else if (drunkness == DrunkLvL.drunk) {
+            } else if (drunkness == DrunkLvL.DRUNK) {
                 strength += 3;
-            } else if (drunkness == DrunkLvL.drunkAsHell) {
+            } else if (drunkness == DrunkLvL.DRUNKASHELL) {
                 strength -= 5;
                 health -= 5;
             }
@@ -55,7 +56,7 @@ public class Pirate {
             int pirate1Hp;
             int pirate2Hp;
 
-            if(pirate.status != captain){
+            if(pirate.status != CAPTAIN){
                 addStrength(5);
             }
             pirate1Hp= this.health - pirate.strength;
@@ -68,7 +69,7 @@ public class Pirate {
 
             pirate2Hp =(pirate.health - (this.strength -5)) ;
 
-            if(pirate.status == captain && pirate2Hp < 1){
+            if(pirate.status == CAPTAIN && pirate2Hp < 1){
                 System.out.println(pirate.name.toUpperCase() + " IS DEAD!!!");
             }
             else if(pirate2Hp < 1){

@@ -1,7 +1,7 @@
 package enums;
 
 public enum ShipState {
-    goodCondition,
-    shattered,
-    almostWrecked
+    GOODCONDITION,
+    SHATTERED,
+    ALMOSTWRECKED
 }

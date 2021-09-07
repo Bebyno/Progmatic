@@ -2,7 +2,7 @@ package model;
 
 import enums.DrunkLvL;
 
-import static enums.FootSoldier.captain;
+import static enums.FootSoldier.CAPTAIN;
 
 public class Captain extends Pirate {
 
@@ -10,7 +10,7 @@ public class Captain extends Pirate {
     int rumOwned;
 
     public Captain(String name, DrunkLvL drunkness, boolean canFight, Ship myShip, int rumOwned) {
-        super(name, drunkness, canFight, captain);
+        super(name, drunkness, canFight, CAPTAIN);
         this.myShip = myShip;
         this.rumOwned = rumOwned;
     }
@@ -18,12 +18,12 @@ public class Captain extends Pirate {
 
     public void giveRumToPirate(Pirate pirate) {
         this.rumOwned -= 1;
-        if (pirate.getDrunkness() == DrunkLvL.clearHeaded) {
-            pirate.setDrunkness(DrunkLvL.pickled);
-        } else if (pirate.getDrunkness() == DrunkLvL.pickled) {
-            pirate.setDrunkness(DrunkLvL.drunk);
+        if (pirate.getDrunkness() == DrunkLvL.CLEARHEADED) {
+            pirate.setDrunkness(DrunkLvL.PICKLED);
+        } else if (pirate.getDrunkness() == DrunkLvL.PICKLED) {
+            pirate.setDrunkness(DrunkLvL.DRUNK);
         } else {
-            pirate.setDrunkness(DrunkLvL.drunkAsHell);
+            pirate.setDrunkness(DrunkLvL.DRUNKASHELL);
         }
     }
 
@@ -34,7 +34,7 @@ public class Captain extends Pirate {
     @Override
     public void fight(Pirate pirate) {
 
-        if(pirate.status == captain){
+        if(pirate.status == CAPTAIN){
             pirate.strength =+ 5;
         }
 
@@ -50,7 +50,7 @@ public class Captain extends Pirate {
 
         pirate1Hp = pirate.health - this.strength;
 
-        if (pirate.status == captain && pirate1Hp < 1) {
+        if (pirate.status == CAPTAIN && pirate1Hp < 1) {
             System.out.println(pirate.name.toUpperCase() + " IS DEAD!!!");
         } else if (pirate1Hp < 1){
             System.out.println(pirate.name + " is dead");

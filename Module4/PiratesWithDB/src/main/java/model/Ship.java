@@ -29,21 +29,21 @@ public class Ship {
 
         //  System.out.println(throwDice);
         if (throwDice == 3) {
-            this.state = ShipState.goodCondition;
+            this.state = ShipState.GOODCONDITION;
         } else if (throwDice == 2) {
-            this.state = ShipState.shattered;
+            this.state = ShipState.SHATTERED;
         } else {
-            this.state = ShipState.almostWrecked;
+            this.state = ShipState.ALMOSTWRECKED;
         }
         //  System.out.println(this.state);
         healthSetUp();
     }
 
     public void healthSetUp() {
-        if (state == ShipState.goodCondition) {
+        if (state == ShipState.GOODCONDITION) {
             health = 30;
             attackPower = 30;
-        } else if (state == ShipState.shattered) {
+        } else if (state == ShipState.SHATTERED) {
             health = 15;
             attackPower = 15;
         } else {
@@ -69,7 +69,7 @@ public class Ship {
         ship1Hp = this.health - enemy.attackPower;
 
         if (ship1Hp < 1) {
-            this.setState(ShipState.almostWrecked);
+            this.setState(ShipState.ALMOSTWRECKED);
         } else {
             System.out.println(this.name + " has won this fight. Now " + this.name + "'s crew can" +
                     " attack the "+ enemy.getName()+"'s. ");
@@ -78,7 +78,7 @@ public class Ship {
         ship2Hp = enemy.health - this.attackPower;
 
         if (ship2Hp < 1) {
-            enemy.setState(ShipState.almostWrecked);
+            enemy.setState(ShipState.ALMOSTWRECKED);
         } else {
             System.out.println(enemy.name + " has won this fight. Now " +enemy.name +"'s crew can" +
                     " attack the "+ this.name+"'s." );
@@ -89,7 +89,7 @@ public class Ship {
 
     public void buffingSoldier(Ship ship) {
 
-        if (this.state != ShipState.almostWrecked) {
+        if (this.state != ShipState.ALMOSTWRECKED) {
             for (int i = 0; i < this.crew.size(); i++)
                 if (this.crew.get(i) instanceof Captain) {
                     this.crew.get(i).addHealth(5);
