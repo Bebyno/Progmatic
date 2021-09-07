@@ -1,0 +1,16 @@
+in the pox.xml u have to copy paste -> 
+
+"
+
+ <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.26</version>
+        </dependency>
+
+    </dependencies>
+
+"
+
+under the  <properties> tag.
