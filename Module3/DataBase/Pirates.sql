@@ -14,7 +14,7 @@ drunkLVL ENUM(
     'DRUNK',
     'DRUNKASHELL'
 ),
-canFight boolean default TRUE,
+canFight boolean,
 status ENUM(
 	'WEAK',
     'NORMAL',
@@ -37,11 +37,14 @@ PRIMARY KEY (ship_name)
 );
 
 INSERT INTO pirate(pirate_name,drunkLVL,canFight,status) VALUES
-('James',1,2),
-('Joe',3,1),
-('Will',2,4),
-('Jim',1,1);
+('James',1,true,2),
+('Joe',3,true,1),
+('Will',2,true,3),
+('Jim',1,true,1),
+('BlackBird',1,true,4);
 
 INSERT INTO ship(ship_name,state) VALUES
 ('Black Pearl',1),
 ('White Pearl',1);
+
+SELECT * FROM pirate;
