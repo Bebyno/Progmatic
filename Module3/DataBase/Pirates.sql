@@ -51,6 +51,6 @@ INSERT INTO ship(ship_name,state) VALUES
 ('Black Pearl',1),
 ('White Pearl',1);
 
-SELECT * FROM pirate;
-SELECT * FROM ship;
+-- SELECT * FROM pirate; --
+-- SELECT * FROM ship; --
 
