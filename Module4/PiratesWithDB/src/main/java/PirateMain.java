@@ -7,13 +7,17 @@ public class PirateMain {
     DBEngine dbEngine = new DBEngine();
 
 
-    public void start(){
-       // battlefield.bigBattle();
+    public void start() {
+        // battlefield.bigBattle();
 
-        if(dbEngine.isConnected()){
-       Pirate pirate = dbEngine.findPirateByName("Jim");
-            System.out.println(pirate.getName()+" "+ pirate.getDrunkness() + " " + pirate.isCanFight());
-    }}
+        if (dbEngine.isConnected()) {
+            Pirate pirate = dbEngine.findPirateByName("Jim");
+            System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());
+
+            dbEngine.ListAllPirate();
+
+        }
+    }
 
     public static void main(String[] args) {
         PirateMain main = new PirateMain();

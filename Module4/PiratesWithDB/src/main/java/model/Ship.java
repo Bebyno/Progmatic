@@ -108,6 +108,10 @@ public class Ship {
         return crew;
     }
 
+    public void setCrew(List<Pirate> crew) {
+        this.crew = crew;
+    }
+
     public void setState(ShipState state) {
         this.state = state;
     }
@@ -119,4 +123,5 @@ public class Ship {
     public String getName() {
         return name;
     }
+
 }
