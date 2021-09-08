@@ -2,6 +2,8 @@ package database;
 
 import enums.DrunkLvL;
 import enums.FootSoldier;
+import enums.ShipState;
+import model.Captain;
 import model.Pirate;
 import model.Ship;
 
@@ -27,7 +29,7 @@ public class DBEngine {
                 "useUnicode=yes&characterEncoding=UTF-8";
 
         Properties properties = new Properties();
-        properties.put("user", System.getenv("DB_USER")); // username legyen root ez a név
+        properties.put("user", System.getenv("DB_USER"));
         properties.put("password", System.getenv("DB_PASSWORD"));
 
         try {
@@ -39,27 +41,24 @@ public class DBEngine {
     }
 
     public Pirate findPirateByName(String searchName) {
-        String query = "SELECT * FROM "+ DBHelper.TABLE_PIRATE+" WHERE pirate_name = ?";// ha több kérdőjel lenne ?(0. index), ?(1. index), ?,
+        String query = "SELECT * FROM " + DBHelper.TABLE_PIRATE + " WHERE pirate_name = ?";
         Pirate result = null;
 
         try {
-            //Statement statement = connection.createStatement();
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, searchName); // a ?-let kicserélni a bemeneti paraméterre (index alapú csere)
-            // több kérdőjel esetén  ps.setString(2,searchName), ps.setString(2,searchName)
+            ps.setString(1, searchName);
             ResultSet resultSet = ps.executeQuery();
 
 
             while (resultSet.next()) {
-                // getXXX("column_name_in_DB")
-                String name = resultSet.getString("pirate_name");// ez az adatbázisból való kell hogy legyen
+                String name = resultSet.getString("pirate_name");
                 String drunkLVLFromDB = resultSet.getString("drunkLVL").toUpperCase();
                 DrunkLvL drunkLvL = DrunkLvL.valueOf(drunkLVLFromDB);
                 Boolean isCanFight = resultSet.getBoolean("canFight");
                 String statusFromDB = resultSet.getString("status").toUpperCase();
                 FootSoldier footSoldier = FootSoldier.valueOf(statusFromDB);
 
-                result = new Pirate(name, drunkLvL,isCanFight, footSoldier);
+                result = new Pirate(name, drunkLvL, isCanFight, footSoldier);
 
             }
 
@@ -71,26 +70,26 @@ public class DBEngine {
     }
 
     public List<Pirate> ListAllPirate() {
-        String query = "SELECT * FROM "+ DBHelper.TABLE_PIRATE;
+        String query = "SELECT * FROM " + DBHelper.TABLE_PIRATE;
 
         List<Pirate> pirates = new ArrayList<>();
-        Ship ship = new Ship();
+    //    Ship ship = new Ship();
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
-                // getXXX("column_name_in_DB")
-                String name = resultSet.getString("pirate_name");// ez az adatbázisból való kell hogy legyen
+                String name = resultSet.getString("pirate_name");
                 String drunkLVLFromDB = resultSet.getString("drunkLVL").toUpperCase();
                 DrunkLvL drunkLvL = DrunkLvL.valueOf(drunkLVLFromDB);
                 Boolean isCanFight = resultSet.getBoolean("canFight");
                 String statusFromDB = resultSet.getString("status").toUpperCase();
                 FootSoldier footSoldier = FootSoldier.valueOf(statusFromDB);
+                // if status nem 4 , akkor pirate jön létre ha 4 akkor captain
+                // P p = p ha nem 4 és C c = C ha 4 tehát IF-ben hozod létre a példányokat a kikötésnek megfelelően
 
-                Pirate pirate = new Pirate(name, drunkLvL,isCanFight, footSoldier);
-            //    ship.setCrew(findDragonElements(id));
+                Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
                 System.out.println(pirate);
                 pirates.add(pirate);
 
@@ -103,5 +102,58 @@ public class DBEngine {
         return pirates;
     }
 
+    public List<Ship> ListAllShip(List<Pirate> crew) {
+        String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
+        List<Ship> shipsList = new ArrayList<>();
 
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("ship_name");
+                String shipState = resultSet.getString("state").toUpperCase();
+                ShipState state = ShipState.valueOf(shipState);
+
+
+                Ship ship = new Ship(name, state, crew);
+                System.out.println(ship.getCrew());
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return shipsList;
+    }
+
+    public Captain captain(Ship ship) {
+        String query = "SELECT * FROM " + DBHelper.TABLE_CAPTAIN;
+        List<Pirate> crew = ListAllPirate();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("ship_name");
+                int rumInNumber = resultSet.getInt("rumOwned");
+
+        //        Captain captain = new Captain("asd")
+
+                Ship myShip = new Ship(name,ShipState.SHATTERED,crew);
+
+
+              //  Captain captain = new Captain();
+                System.out.println();
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 }

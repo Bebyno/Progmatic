@@ -121,10 +121,10 @@ public class Pirate {
     @Override
     public String toString() {
         return
-                name + "," +
+                "|"+name + "," +
                         drunkness + "," +
-                        canFight +
-                        status;
+                        canFight + ","+
+                        status+"|";
     }
 
 

@@ -11,10 +11,10 @@ public class PirateMain {
         // battlefield.bigBattle();
 
         if (dbEngine.isConnected()) {
-            Pirate pirate = dbEngine.findPirateByName("Jim");
-            System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());
+        /*    Pirate pirate = dbEngine.findPirateByName("Jim");
+            System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());*/
 
-            dbEngine.ListAllPirate();
+            dbEngine.ListAllShip(dbEngine.ListAllPirate());
 
         }
     }

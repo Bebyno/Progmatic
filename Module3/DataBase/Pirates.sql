@@ -29,18 +29,29 @@ state ENUM(
 	'GOODCONDITION',
     'SHATTERED',
     'ALMOSTWRECKED'),
+    captain_name VARCHAR(50),
 PRIMARY KEY (ship_name)
-
+/*FOREIGN KEY (captain_name) REFERENCES captain(captain_name)*/
 );
 
 CREATE TABLE /* IF NOT EXISTS */ captain(
-captain_id INT UNSIGNED AUTO_INCREMENT,
+/*captain_id INT UNSIGNED AUTO_INCREMENT,*/
 captain_name VARCHAR(50),
 rumOwned INT,
 ship_name VARCHAR(50),
-PRIMARY KEY (captain_id),
-FOREIGN KEY (ship_name) REFERENCES ship(ship_name)
+PRIMARY KEY (captain_name)
+/*FOREIGN KEY (ship_name) REFERENCES ship(ship_name)*/
 );
+
+CREATE TABLE /* IF NOT EXISTS */ ship_captain(
+id INT UNSIGNED AUTO_INCREMENT,
+ship_name VARCHAR(50),
+captain_name VARCHAR(50),
+PRIMARY KEY (id),
+FOREIGN KEY (ship_name) REFERENCES ship(ship_name),
+FOREIGN KEY (captain_name) REFERENCES captain(captain_name)
+);
+
 
 /*
 SELECT pirate_name FROM pirate WHERE pirate.status = 4 /  'CAPTAIN'
@@ -59,7 +70,12 @@ INSERT INTO ship(ship_name,state) VALUES
 ('Black Pearl',1),
 ('White Pearl',1);
 
+
+
 INSERT INTO captain(captain_name) SELECT pirate_name FROM pirate WHERE pirate.status= 4; 
+/*INSERT INTO captain(rumOwned) VALUES
+(3);*/
+
 
 SELECT * FROM captain;
 -- SELECT * FROM ship; --

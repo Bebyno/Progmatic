@@ -9,6 +9,7 @@ public class Captain extends Pirate {
     Ship myShip;
     int rumOwned;
 
+
     public Captain(String name, DrunkLvL drunkness, boolean canFight, Ship myShip, int rumOwned) {
         super(name, drunkness, canFight, CAPTAIN);
         this.myShip = myShip;

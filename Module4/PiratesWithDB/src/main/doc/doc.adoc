@@ -1,0 +1,8 @@
+kapcsoló táblák nevek szerint
+
+kapitánynak van hajója és a hajónak van legénysége melyben a kapitány is benne van.
+
+a kapitány a pirate leszármazottja. Hogy kell mysql-ben kezelni ezt?
+? az enum alapján?
+Enum mutat rá a class-ra (hogy kapitány-e?)
+
