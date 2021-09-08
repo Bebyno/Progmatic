@@ -14,7 +14,7 @@ drunkLVL ENUM(
     'DRUNK',
     'DRUNKASHELL'
 ),
-canFight boolean DEFAULT TRUE,
+canFight boolean DEFAULT true,
 status ENUM(
 	'WEAK',
     'NORMAL',
@@ -32,14 +32,22 @@ state ENUM(
 PRIMARY KEY (ship_name)
 
 );
+
 CREATE TABLE /* IF NOT EXISTS */ captain(
 captain_id INT UNSIGNED AUTO_INCREMENT,
+captain_name VARCHAR(50),
 rumOwned INT,
 ship_name VARCHAR(50),
 PRIMARY KEY (captain_id),
-
 FOREIGN KEY (ship_name) REFERENCES ship(ship_name)
 );
+
+/*
+SELECT pirate_name FROM pirate WHERE pirate.status = 4 /  'CAPTAIN'
+
+INSERT INTO `table2` (`field_name2`) SELECT `field_name` FROM `table1`
+*/
+
 INSERT INTO pirate(pirate_name,drunkLVL,status) VALUES
 ('James',1,2),
 ('Joe',3,1),
@@ -51,6 +59,8 @@ INSERT INTO ship(ship_name,state) VALUES
 ('Black Pearl',1),
 ('White Pearl',1);
 
--- SELECT * FROM pirate; --
+INSERT INTO captain(captain_name) SELECT pirate_name FROM pirate WHERE pirate.status= 4; 
+
+SELECT * FROM captain;
 -- SELECT * FROM ship; --
 
