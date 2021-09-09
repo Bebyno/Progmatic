@@ -124,4 +124,11 @@ public class Ship {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return
+                "|"+name + "," +
+                        state + "," +
+                        crew +"|";
+    }
 }

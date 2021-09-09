@@ -68,14 +68,39 @@ public class DBEngine {
         }
         return result;
     }
+/*
+    public List<Ship> listAllShip(){
+        String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
+List<Ship> ships = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("ship_name");
+                String shipStateFromDB = resultSet.getString("state").toUpperCase();
+                ShipState shipState = ShipState.valueOf(shipStateFromDB);
+
+
+                Ship ship = new Ship(name,shipState,null);
+                System.out.println(ship);
+                ships.add(ship);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }*/
+
 
     public List<Pirate> ListAllPirate() {
-     //   String query = "SELECT * FROM " + DBHelper.TABLE_PIRATE + " OUTER JOIN "+ DBHelper.TABLE_CAPTAIN;
-        String query = "SELECT " + DBHelper.TABLE_PIRATE + ".*," +DBHelper.TABLE_CAPTAIN+ ".pirate_id AS is_captain," +DBHelper.TABLE_CAPTAIN+ ".rumOwned," +DBHelper.TABLE_CAPTAIN+ ".ship_id FROM " + DBHelper.TABLE_PIRATE + " LEFT JOIN " +
-                "" +DBHelper.TABLE_CAPTAIN+ " ON " + DBHelper.TABLE_PIRATE + ".pirate_id = " +DBHelper.TABLE_CAPTAIN+ ".pirate_id;";
+        String query = DBHelper.PATH;
 
         List<Pirate> pirates = new ArrayList<>();
-    //    Ship ship = new Ship();
 
         try {
             Statement statement = connection.createStatement();
@@ -92,14 +117,15 @@ public class DBEngine {
 
                 if(resultSet.getObject("is_captain")==null){  // table/class mappelés.
                     Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
-                    System.out.println(pirate);
+                 //   System.out.println(pirate);
                     pirates.add(pirate);
                 }else{
                     int rumOwned = resultSet.getInt("rumOwned");
                     int shipID = resultSet.getInt("ship_id");
+                   // Ship ship = new Ship()
 
                     Captain captain = new Captain(name,drunkLvL,isCanFight,null,rumOwned);
-                    System.out.println(captain);
+                  //  System.out.println(captain);
                     pirates.add(captain);
                 }
                 // if status nem 4 , akkor pirate jön létre ha 4 akkor captain
@@ -133,7 +159,8 @@ public class DBEngine {
 
 
                 Ship ship = new Ship(name, state, crew);
-                System.out.println(ship.getCrew());
+               // System.out.println(ship.getCrew());
+                System.out.println(ship);
 
             }
 
