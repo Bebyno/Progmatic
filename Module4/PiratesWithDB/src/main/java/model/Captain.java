@@ -68,4 +68,15 @@ public class Captain extends Pirate {
     public Ship getMyShip() {
         return myShip;
     }
+
+
+    @Override
+    public String toString() {
+        return
+                "|"+name + "," +
+                        drunkness + "," +
+                        canFight + ","+
+                        status+ ","+
+                rumOwned+"|";
+    }
 }

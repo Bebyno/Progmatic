@@ -4,5 +4,5 @@ public enum FootSoldier {
     WEAK,
     NORMAL,
     STRONG,
-    CAPTAIN
+    CAPTAIN // kivenni.
 }

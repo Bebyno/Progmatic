@@ -21,29 +21,38 @@ status ENUM(
     'STRONG',
     'CAPTAIN'),
     PRIMARY KEY (pirate_id)
+    /*
+    rumOwned INT DEFAULT -1,
+ship_name VARCHAR(50),
+    */
+    
     );
 
 CREATE TABLE /* IF NOT EXISTS */ ship(
+ship_id INT UNSIGNED AUTO_INCREMENT,
 ship_name VARCHAR(50),
 state ENUM(
 	'GOODCONDITION',
     'SHATTERED',
     'ALMOSTWRECKED'),
     captain_name VARCHAR(50),
-PRIMARY KEY (ship_name)
+PRIMARY KEY (ship_id)
 /*FOREIGN KEY (captain_name) REFERENCES captain(captain_name)*/
 );
 
 CREATE TABLE /* IF NOT EXISTS */ captain(
-/*captain_id INT UNSIGNED AUTO_INCREMENT,*/
-captain_name VARCHAR(50),
+pirate_id INT UNSIGNED,
+/*captain_name VARCHAR(50),*/
 rumOwned INT,
-ship_name VARCHAR(50),
-PRIMARY KEY (captain_name)
-/*FOREIGN KEY (ship_name) REFERENCES ship(ship_name)*/
+ship_id INT UNSIGNED,
+PRIMARY KEY (pirate_id),
+FOREIGN KEY (pirate_id) REFERENCES pirate(pirate_id),
+FOREIGN KEY (ship_id) REFERENCES ship(ship_id)
 );
+/* JOIN !!*/
 
-CREATE TABLE /* IF NOT EXISTS */ ship_captain(
+
+/*CREATE TABLE ship_captain(
 id INT UNSIGNED AUTO_INCREMENT,
 ship_name VARCHAR(50),
 captain_name VARCHAR(50),
@@ -51,12 +60,12 @@ PRIMARY KEY (id),
 FOREIGN KEY (ship_name) REFERENCES ship(ship_name),
 FOREIGN KEY (captain_name) REFERENCES captain(captain_name)
 );
+*/
 
 
 /*
-SELECT pirate_name FROM pirate WHERE pirate.status = 4 /  'CAPTAIN'
+SELECT pirate_name FROM pirate WHERE pirate.status = 4 / 'CAPTAIN'
 
-INSERT INTO `table2` (`field_name2`) SELECT `field_name` FROM `table1`
 */
 
 INSERT INTO pirate(pirate_name,drunkLVL,status) VALUES
@@ -64,15 +73,20 @@ INSERT INTO pirate(pirate_name,drunkLVL,status) VALUES
 ('Joe',3,1),
 ('Will',2,3),
 ('Jim',1,1),
-('BlackBird',1,4);
+('BlackBeard',1,4);
 
 INSERT INTO ship(ship_name,state) VALUES
 ('Black Pearl',1),
 ('White Pearl',1);
 
+INSERT INTO captain(pirate_id,rumOwned,ship_id) VALUES 
+(5,10,2),
+(4,null,null);
 
 
-INSERT INTO captain(captain_name) SELECT pirate_name FROM pirate WHERE pirate.status= 4; 
+SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id FROM pirate LEFT JOIN captain ON pirate.pirate_id = captain.pirate_id;
+
+/*INSERT INTO captain(captain_name) SELECT pirate_name FROM pirate WHERE pirate.status= 4; */
 /*INSERT INTO captain(rumOwned) VALUES
 (3);*/
 

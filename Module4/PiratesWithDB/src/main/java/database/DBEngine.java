@@ -25,15 +25,15 @@ public class DBEngine {
     }
 
     private Connection connect() {
-        String url = "jdbc:mysql://localhost:3306/Pirates?" +
-                "useUnicode=yes&characterEncoding=UTF-8";
+        String connectionString = "jdbc:mysql://localhost:3306/Pirates?" +
+                "useUnicode=yes&characterEncoding=UTF-8&user="+System.getenv("DB_USER");
 
         Properties properties = new Properties();
-        properties.put("user", System.getenv("DB_USER"));
+       // properties.put("user", System.getenv("DB_USER"));
         properties.put("password", System.getenv("DB_PASSWORD"));
 
         try {
-            return DriverManager.getConnection(url, properties);
+            return DriverManager.getConnection(connectionString, properties);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -45,8 +45,8 @@ public class DBEngine {
         Pirate result = null;
 
         try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, searchName);
+            PreparedStatement ps = connection.prepareStatement(query);  // ez mindig prepared legyen a trollok miatt.
+            ps.setString(1, searchName);        //legalábbis akkor ha USERtől származó paraméter van benne.(input)
             ResultSet resultSet = ps.executeQuery();
 
 
@@ -70,7 +70,9 @@ public class DBEngine {
     }
 
     public List<Pirate> ListAllPirate() {
-        String query = "SELECT * FROM " + DBHelper.TABLE_PIRATE;
+     //   String query = "SELECT * FROM " + DBHelper.TABLE_PIRATE + " OUTER JOIN "+ DBHelper.TABLE_CAPTAIN;
+        String query = "SELECT " + DBHelper.TABLE_PIRATE + ".*," +DBHelper.TABLE_CAPTAIN+ ".pirate_id AS is_captain," +DBHelper.TABLE_CAPTAIN+ ".rumOwned," +DBHelper.TABLE_CAPTAIN+ ".ship_id FROM " + DBHelper.TABLE_PIRATE + " LEFT JOIN " +
+                "" +DBHelper.TABLE_CAPTAIN+ " ON " + DBHelper.TABLE_PIRATE + ".pirate_id = " +DBHelper.TABLE_CAPTAIN+ ".pirate_id;";
 
         List<Pirate> pirates = new ArrayList<>();
     //    Ship ship = new Ship();
@@ -86,12 +88,26 @@ public class DBEngine {
                 Boolean isCanFight = resultSet.getBoolean("canFight");
                 String statusFromDB = resultSet.getString("status").toUpperCase();
                 FootSoldier footSoldier = FootSoldier.valueOf(statusFromDB);
+
+
+                if(resultSet.getObject("is_captain")==null){  // table/class mappelés.
+                    Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
+                    System.out.println(pirate);
+                    pirates.add(pirate);
+                }else{
+                    int rumOwned = resultSet.getInt("rumOwned");
+                    int shipID = resultSet.getInt("ship_id");
+
+                    Captain captain = new Captain(name,drunkLvL,isCanFight,null,rumOwned);
+                    System.out.println(captain);
+                    pirates.add(captain);
+                }
                 // if status nem 4 , akkor pirate jön létre ha 4 akkor captain
                 // P p = p ha nem 4 és C c = C ha 4 tehát IF-ben hozod létre a példányokat a kikötésnek megfelelően
 
-                Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
+           /*     Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
                 System.out.println(pirate);
-                pirates.add(pirate);
+                pirates.add(pirate);*/
 
             }
 
