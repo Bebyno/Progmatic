@@ -180,6 +180,7 @@ List<Ship> ships = new ArrayList<>();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("There are: "+ shipsList.size() + " ships. These are: ");
         System.out.println(shipsList);
         return shipsList;
     }

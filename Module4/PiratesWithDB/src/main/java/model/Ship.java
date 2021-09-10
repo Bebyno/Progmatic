@@ -127,7 +127,7 @@ public class Ship {
     @Override
     public String toString() {
         return
-                "The ship name: "+name + " it's in: " +
+                "The ship name: "+name + ", it's in: " +
                         state + ". The crew are: " +
                         crew +"\n";
     }
