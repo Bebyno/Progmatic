@@ -84,10 +84,13 @@ INSERT INTO ship(ship_id,ship_name,state) VALUES
 
 INSERT INTO captain(pirate_id,rumOwned,ship_id) VALUES 
 (5,10,2),
-(4,null,null);
+(4,null,1);
 
 
-SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id,ship.ship_name FROM pirate LEFT JOIN captain ON pirate.pirate_id = captain.pirate_id LEFT JOIN ship ON captain.ship_id = ship.ship_id;
+SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id,ship.ship_name
+FROM pirate
+LEFT JOIN captain ON pirate.pirate_id = captain.pirate_id
+LEFT JOIN ship ON captain.ship_id = ship.ship_id;
 
 /*INSERT INTO captain(captain_name) SELECT pirate_name FROM pirate WHERE pirate.status= 4; */
 /*INSERT INTO captain(rumOwned) VALUES
