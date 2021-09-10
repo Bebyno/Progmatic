@@ -1,6 +1,5 @@
 import database.DBEngine;
 import fight.Battlefield;
-import model.Pirate;
 
 public class PirateMain {
     Battlefield battlefield = new Battlefield();
@@ -14,7 +13,8 @@ public class PirateMain {
         /*    Pirate pirate = dbEngine.findPirateByName("Jim");
             System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());*/
 
-            dbEngine.ListAllShip(dbEngine.ListAllPirate());
+         //   dbEngine.ListAllShipBad(dbEngine.ListAllPirate());
+            dbEngine.ShipFromDB();
 
         }
     }

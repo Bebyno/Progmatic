@@ -97,7 +97,7 @@ List<Ship> ships = new ArrayList<>();
     }*/
 
 
-    public List<Pirate> ListAllPirate() {
+    public List<Pirate> ListAllPirate(Ship ship) {
         String query = DBHelper.PATH;
 
         List<Pirate> pirates = new ArrayList<>();
@@ -122,11 +122,22 @@ List<Ship> ships = new ArrayList<>();
                 }else{
                     int rumOwned = resultSet.getInt("rumOwned");
                     int shipID = resultSet.getInt("ship_id");
-                   // Ship ship = new Ship()
+                    Captain captain = new Captain(name,drunkLvL,isCanFight,ship,rumOwned);
 
-                    Captain captain = new Captain(name,drunkLvL,isCanFight,null,rumOwned);
-                  //  System.out.println(captain);
+                    // ID megadjuk és a kap. hajóját késöbb be set-telem.
+
+                    //  System.out.println(captain);
                     pirates.add(captain);
+
+
+                   // resultSet.getObject(String.valueOf(DBHelper.TABLE_CAPTAIN +".ship_id" == DBHelper.TABLE_SHIP +".ship_id"));
+
+                    /*String shipName = resultSet.getString("ship_name");
+                    String shipState = resultSet.getString("state").toUpperCase();
+                    ShipState state = ShipState.valueOf(shipState);
+                    Ship ship = new Ship(shipName,state,null);*/
+
+
                 }
                 // if status nem 4 , akkor pirate jön létre ha 4 akkor captain
                 // P p = p ha nem 4 és C c = C ha 4 tehát IF-ben hozod létre a példányokat a kikötésnek megfelelően
@@ -144,7 +155,7 @@ List<Ship> ships = new ArrayList<>();
         return pirates;
     }
 
-    public List<Ship> ListAllShip(List<Pirate> crew) {
+    /*public List<Ship> ListAllShipBad() {
         String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
         List<Ship> shipsList = new ArrayList<>();
 
@@ -153,13 +164,13 @@ List<Ship> ships = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
+
                 String name = resultSet.getString("ship_name");
                 String shipState = resultSet.getString("state").toUpperCase();
                 ShipState state = ShipState.valueOf(shipState);
 
 
-                Ship ship = new Ship(name, state, crew);
-               // System.out.println(ship.getCrew());
+                Ship ship = new Ship(name, state, ListAllPirate());
                 System.out.println(ship);
 
             }
@@ -170,10 +181,52 @@ List<Ship> ships = new ArrayList<>();
 
         return shipsList;
     }
+*/
+
+
+    public Ship ShipFromDB() {
+        String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
+       // List<Ship> shipsList = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+
+                String name = resultSet.getString("ship_name");
+                String shipState = resultSet.getString("state").toUpperCase();
+                ShipState state = ShipState.valueOf(shipState);
+
+
+                Ship ship = new Ship(name, state, null);
+
+                ship.setCrew(ListAllPirate(ship));
+
+                System.out.println(ship);
+
+                return ship;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
+
+
+
+
+
+
 
     public Captain captain(Ship ship) {
         String query = "SELECT * FROM " + DBHelper.TABLE_CAPTAIN;
-        List<Pirate> crew = ListAllPirate();
+      //  List<Pirate> crew = ListAllPirate();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -184,7 +237,7 @@ List<Ship> ships = new ArrayList<>();
 
         //        Captain captain = new Captain("asd")
 
-                Ship myShip = new Ship(name,ShipState.SHATTERED,crew);
+       //         Ship myShip = new Ship(name,ShipState.SHATTERED,crew);
 
 
               //  Captain captain = new Captain();
