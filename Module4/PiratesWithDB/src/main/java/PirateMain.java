@@ -14,7 +14,7 @@ public class PirateMain {
             System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());*/
 
          //   dbEngine.ListAllShipBad(dbEngine.ListAllPirate());
-            dbEngine.ShipFromDB();
+            dbEngine.ShipsFromDB();
 
         }
     }

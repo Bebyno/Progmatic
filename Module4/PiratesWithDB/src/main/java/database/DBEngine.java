@@ -26,10 +26,10 @@ public class DBEngine {
 
     private Connection connect() {
         String connectionString = "jdbc:mysql://localhost:3306/Pirates?" +
-                "useUnicode=yes&characterEncoding=UTF-8&user="+System.getenv("DB_USER");
+                "useUnicode=yes&characterEncoding=UTF-8&user=" + System.getenv("DB_USER");
 
         Properties properties = new Properties();
-       // properties.put("user", System.getenv("DB_USER"));
+        // properties.put("user", System.getenv("DB_USER"));
         properties.put("password", System.getenv("DB_PASSWORD"));
 
         try {
@@ -97,7 +97,7 @@ List<Ship> ships = new ArrayList<>();
     }*/
 
 
-    public List<Pirate> ListAllPirate(Ship ship) {
+    public List<Pirate> ListAllPirate(int shipID, Ship ship) {
         String query = DBHelper.PATH;
 
         List<Pirate> pirates = new ArrayList<>();
@@ -115,36 +115,33 @@ List<Ship> ships = new ArrayList<>();
                 FootSoldier footSoldier = FootSoldier.valueOf(statusFromDB);
 
 
-                if(resultSet.getObject("is_captain")==null){  // table/class mappelés.
-                    Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
-                 //   System.out.println(pirate);
-                    pirates.add(pirate);
-                }else{
-                    int rumOwned = resultSet.getInt("rumOwned");
-                    int shipID = resultSet.getInt("ship_id");
-                    Captain captain = new Captain(name,drunkLvL,isCanFight,ship,rumOwned);
+                int crewID = resultSet.getInt("crew_id");
+                if (shipID == crewID) {
+                    if (resultSet.getObject("is_captain") == null) {  // table/class mappelés.
+                        Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
+                        //   System.out.println(pirate);
+                        pirates.add(pirate);
+                    } else {
+                        int rumOwned = resultSet.getInt("rumOwned");
 
-                    // ID megadjuk és a kap. hajóját késöbb be set-telem.
+                        Captain captain = new Captain(name, drunkLvL, isCanFight, ship, rumOwned);
 
-                    //  System.out.println(captain);
-                    pirates.add(captain);
+                        pirates.add(captain);
 
-
-                   // resultSet.getObject(String.valueOf(DBHelper.TABLE_CAPTAIN +".ship_id" == DBHelper.TABLE_SHIP +".ship_id"));
-
-                    /*String shipName = resultSet.getString("ship_name");
-                    String shipState = resultSet.getString("state").toUpperCase();
-                    ShipState state = ShipState.valueOf(shipState);
-                    Ship ship = new Ship(shipName,state,null);*/
-
-
+                    }
                 }
+
+                // ide kelhet egy if, hogy csak azokat a legényeket rakja be a crwe-ba akik ehhez a hajóhoz tartoznak.
+                // if(crew_id == ship_id){ship.setCrew(ListAllPirate(ship));}
+
+
                 // if status nem 4 , akkor pirate jön létre ha 4 akkor captain
                 // P p = p ha nem 4 és C c = C ha 4 tehát IF-ben hozod létre a példányokat a kikötésnek megfelelően
 
-           /*     Pirate pirate = new Pirate(name, drunkLvL, isCanFight, footSoldier);
-                System.out.println(pirate);
-                pirates.add(pirate);*/
+
+                /*
+                 Csapatokat szétvágni, id alapján? Hogy olvasom be?
+                * */
 
             }
 
@@ -154,6 +151,40 @@ List<Ship> ships = new ArrayList<>();
 
         return pirates;
     }
+
+    public List<Ship> ShipsFromDB() {
+        String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
+         List<Ship> shipsList = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+
+                String name = resultSet.getString("ship_name");
+                String shipState = resultSet.getString("state").toUpperCase();
+                ShipState state = ShipState.valueOf(shipState);
+                int shipID = resultSet.getInt("ship_id");
+
+
+                Ship ship = new Ship(name, state, null);
+
+                ship.setCrew(ListAllPirate(shipID, ship));
+
+               // System.out.println(ship);
+                shipsList.add(ship);
+                //return ship;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(shipsList);
+        return shipsList;
+    }
+
+
 
     /*public List<Ship> ListAllShipBad() {
         String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
@@ -184,49 +215,9 @@ List<Ship> ships = new ArrayList<>();
 */
 
 
-    public Ship ShipFromDB() {
-        String query = "SELECT * FROM " + DBHelper.TABLE_SHIP;
-       // List<Ship> shipsList = new ArrayList<>();
-
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-
-                String name = resultSet.getString("ship_name");
-                String shipState = resultSet.getString("state").toUpperCase();
-                ShipState state = ShipState.valueOf(shipState);
-
-
-                Ship ship = new Ship(name, state, null);
-
-                ship.setCrew(ListAllPirate(ship));
-
-                System.out.println(ship);
-
-                return ship;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-
-
-
-
-
-
-
-
     public Captain captain(Ship ship) {
         String query = "SELECT * FROM " + DBHelper.TABLE_CAPTAIN;
-      //  List<Pirate> crew = ListAllPirate();
+        //  List<Pirate> crew = ListAllPirate();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -235,12 +226,12 @@ List<Ship> ships = new ArrayList<>();
                 String name = resultSet.getString("ship_name");
                 int rumInNumber = resultSet.getInt("rumOwned");
 
-        //        Captain captain = new Captain("asd")
+                //        Captain captain = new Captain("asd")
 
-       //         Ship myShip = new Ship(name,ShipState.SHATTERED,crew);
+                //         Ship myShip = new Ship(name,ShipState.SHATTERED,crew);
 
 
-              //  Captain captain = new Captain();
+                //  Captain captain = new Captain();
                 System.out.println();
 
             }

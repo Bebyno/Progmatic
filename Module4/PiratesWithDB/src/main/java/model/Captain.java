@@ -75,8 +75,8 @@ public class Captain extends Pirate {
         return
                 "|"+name + "," +
                         drunkness + "," +
-                        canFight + ","+
+                        (canFight ? "Ready to fight" : "Can't fight") + ","+
                         status+ ","+
-                rumOwned+"|";
+                        (" and have "+rumOwned+" rum.|");
     }
 }
