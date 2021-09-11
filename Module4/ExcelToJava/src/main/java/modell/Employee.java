@@ -1,10 +1,12 @@
 package modell;
 
+import java.util.Formatter;
+
 public class Employee {
     private java.lang.String name;
     private java.lang.String gender;
     private Double age;
-  //  private boolean onHoliday;
+    //  private boolean onHoliday;
 
     public Employee() {
     }
@@ -44,11 +46,25 @@ public class Employee {
     public void setAge(Double age) {
         this.age = age;
     }
+
     @Override
     public java.lang.String toString() {
+        Formatter formatter = new Formatter();
+        formatter.format("%.0f", age);
+
         return
                 name + "," +
                         gender + "," +
-                        age;
+                        formatter;
 
-}}
+         /* cut of numbers behind . solution.
+
+         Employee employee = new Employee();
+        employee.setAge(3.23344);
+        double asd = employee.getAge();
+        Formatter formatter = new Formatter();
+        formatter.format("%.0f",asd);
+        System.out.println(formatter.toString());*/
+
+    }
+}
