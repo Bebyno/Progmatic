@@ -11,17 +11,6 @@ public class Employee {
     public Employee() {
     }
 
-   /* public Employee(java.lang.String name, java.lang.String gender, java.lang.Integer age) {
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-    }
-
-    public Employee(java.lang.String name, int age, boolean gender2) {
-        this.name = name;
-        this.age = age;
-        this.onHoliday = gender2;
-    }*/
 
     public java.lang.String getName() {
         return name;
@@ -56,15 +45,6 @@ public class Employee {
                 name + "," +
                         gender + "," +
                         formatter;
-
-         /* cut of numbers behind . solution.
-
-         Employee employee = new Employee();
-        employee.setAge(3.23344);
-        double asd = employee.getAge();
-        Formatter formatter = new Formatter();
-        formatter.format("%.0f",asd);
-        System.out.println(formatter.toString());*/
 
     }
 }
