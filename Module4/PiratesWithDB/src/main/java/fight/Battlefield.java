@@ -1,8 +1,5 @@
 package fight;
 
-import enums.DrunkLvL;
-import enums.FootSoldier;
-import enums.ShipState;
 import model.Captain;
 import model.Pirate;
 import model.Ship;
@@ -11,62 +8,47 @@ import java.util.*;
 
 
 public class Battlefield {
+    private List<Ship> shipList;
 
-    List<Pirate> Ateam = new ArrayList<>();
-    List<Pirate> Bteam = new ArrayList<>();
+    public void gettingTheShipsFromDB(List<Ship> ships) {
+        shipList = ships;
+    }
+
+    List<List<Pirate>> crew = new ArrayList<>();
 
     List<Captain> captainList = new ArrayList<>();
     List<Pirate> allPirate = new ArrayList<>();
 
-    Ship shipTeamA = new Ship("Black Pearl", ShipState.SHATTERED, Ateam);
-    Ship shipTeamB = new Ship("White Pearl", ShipState.GOODCONDITION, Bteam);
+    Ship shipTeamA;
+    Ship shipTeamB;
 
-    public void fillingTheCrews() {
 
-        Pirate james = new Pirate("James", DrunkLvL.PICKLED, true, FootSoldier.WEAK);
-        Pirate joe = new Pirate("Joe", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
-        Pirate joly = new Pirate("Joly", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
-        Pirate Bill = new Pirate("Bill", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
-        Pirate jack = new Pirate("Jack", DrunkLvL.DRUNKASHELL, true, FootSoldier.WEAK);
-        Pirate will = new Pirate("Will", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
-        Captain blackBeard = new Captain("BlackBeard", DrunkLvL.CLEARHEADED, true, shipTeamA, 3);
-        Ateam.add(james);
-        Ateam.add(joe);
-        Ateam.add(joly);
-        Ateam.add(Bill);
-        Ateam.add(jack);
-        Ateam.add(will);
-        Ateam.add(blackBeard);
-
-        Pirate bob = new Pirate("Bob", DrunkLvL.PICKLED, true, FootSoldier.WEAK);
-        Pirate zoro = new Pirate("Zoro", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
-        Pirate brad = new Pirate("Brad", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
-        Pirate aladin = new Pirate("Aladin", DrunkLvL.DRUNKASHELL, true, FootSoldier.WEAK);
-        Pirate lajos = new Pirate("Lajcsi", DrunkLvL.CLEARHEADED, true, FootSoldier.NORMAL);
-        Pirate wilmos = new Pirate("Wilmos", DrunkLvL.DRUNK, true, FootSoldier.STRONG);
-        Captain ironBeard = new Captain("IronBeard", DrunkLvL.CLEARHEADED, true, shipTeamB, 3);
-        Bteam.add(bob);
-        Bteam.add(zoro);
-        Bteam.add(brad);
-        Bteam.add(aladin);
-        Bteam.add(lajos);
-        Bteam.add(wilmos);
-        Bteam.add(ironBeard);
+    public List<List<Pirate>> crews(List<Ship> ships) {
+        for (int i = 0; i < shipList.size(); i++) {
+            crew.add(ships.get(i).getCrew());
+        }
+        return crew;
     }
+
     public int max() {
         int max = 0;
-        if (Ateam.size() > Bteam.size()) {
-            max = Ateam.size();
+
+        for (Ship ship : shipList) {
+            if (ship.getCrew().size() > max) {
+                max = ship.getCrew().size();
+            }
         }
-        max = Bteam.size();
         return max;
     }
 
     public int allList() {
-        for (int i = 0; i < max(); i++) {
-            allPirate.add(Ateam.get(i));
-            allPirate.add(Bteam.get(i));
+
+        for (int i = 0; i < crew.size(); i++) {
+            for (int y = 0; y < crew.get(i).size(); y++) {
+                allPirate.add(crew.get(i).get(y));
+            }
         }
+
         return allPirate.size();
     }
 
@@ -120,42 +102,48 @@ public class Battlefield {
     }
 
     public void randomization() {
-        Collections.shuffle(Ateam);
-        Collections.shuffle(Bteam);
+        for (List<Pirate> pirates : crew) {
+            Collections.shuffle(pirates);
+        }
     }
 
     public void isCanFight() {
-        for (Pirate pirate : Ateam) {
-            if (pirate.getStrength() < 1) {
-                pirate.setCanFight(false);
-            }
-        }
-        for (Pirate pirate : Bteam) {
-            if (pirate.getStrength() < 1) {
-                pirate.setCanFight(false);
+
+        for (List<Pirate> pirates : crew) {
+            for (Pirate pirate : pirates) {
+                if (pirate.getStrength() < 1) {
+                    pirate.setCanFight(false);
+                }
             }
         }
     }
 
     public void fightablePirateHandling() {
-        List<Pirate> deadATeam = new ArrayList<>();
+        List<Pirate> deadTeamMember = new ArrayList<>();
         List<Pirate> deadBTeam = new ArrayList<>();
 
-        for (Pirate pirate : Ateam) {
-            if (pirate.getHealth() < 1 || !pirate.isCanFight()) {
-                deadATeam.add(pirate);
+
+        for (List<Pirate> pirates : crew) {
+            for (Pirate pirate : pirates) {
+                if (pirate.getHealth() < 1 || !pirate.isCanFight()) {
+                    deadTeamMember.add(pirate);
+                }
             }
+            pirates.removeAll(deadTeamMember);
         }
-        for (Pirate pirate : Bteam) {
-            if (pirate.getHealth() < 1 || !pirate.isCanFight()) {
-                deadBTeam.add(pirate);
-            }
-        }
-        Ateam.removeAll(deadATeam);
-        Bteam.removeAll(deadBTeam);
     }
 
     public boolean navalBattle() {
+        if (shipList.size() < 3) {
+
+            for (int i = 0; i < shipList.size() - 1; i++) {
+                shipTeamA = shipList.get(i);
+                shipTeamB = shipList.get(i + 1);
+            }
+        } else {
+            System.out.println("Work in progress");
+        }
+
         System.out.println("Let the battle begin.");
         System.out.println("Today " + shipTeamA.getName() + " will fight against " + shipTeamB.getName() + ".");
         System.out.println("Fight result: ");
@@ -166,21 +154,16 @@ public class Battlefield {
         return shipTeamA.shipBattle(shipTeamB);
     }
 
-    public void printCrewMembers(){
-        System.out.println("1.team: ");
-        for (int i = 0; i < Ateam.size(); i++) {
-            System.out.print(Ateam.get(i).getName() + ", ");
-        }
-        if (Ateam.size() == 0) {
-            System.out.println("No one left.");
-        }
-        System.out.println();
-        System.out.println("2.team: ");
-        for (int i = 0; i < Bteam.size(); i++) {
-            System.out.print(Bteam.get(i).getName() + ", ");
-        }
-        if (Bteam.size() == 0) {
-            System.out.println("No one left.");
+    public void printCrewMembers() {
+        int whichOneTeam = 1;
+        for (List<Pirate> pirates : crew) {
+            System.out.println("\n" + whichOneTeam++ + ".team: ");
+            for (Pirate pirate : pirates) {
+                System.out.print(pirate.getName() + ", ");
+            }
+            if (pirates.size() == 0) {
+                System.out.println("No one left.");
+            }
         }
     }
 
@@ -189,9 +172,11 @@ public class Battlefield {
             boolean isATeamCaptainLive = true;
             boolean isBTeamCaptainLive = true;
             int round = 1;
-            fillingTheCrews();
+            crews(shipList);
+            // fillingTheCrews();
             shipTeamA.buffingSoldier(shipTeamB);
             dropRumToPirates(captainList(allList()));
+
             isCanFight();
             fightablePirateHandling();
 
@@ -205,25 +190,27 @@ public class Battlefield {
                     System.out.println();
                     Thread.sleep(2000);
 
-                    for (int i = 0; i < max(); i++) {
+                    for (int i = 0; i < crew.size() - 1; i++) {
 
-                        System.out.print("\n" + Ateam.get(i).getName() + "(" + Ateam.get(i).getHealth() + "HP" +
-                                "," + Ateam.get(i).getStrength() + "STR" + ")" + " vs " + Bteam.get(i).getName() + "(" +
-                                "" + Bteam.get(i).getHealth() + "HP," + Bteam.get(i).getStrength() + "STR" + ")" + "\n");
+                        for (int y = 0; y < max(); y++) {
+                            System.out.println("\n" + crew.get(i).get(y).getName() + "(" + crew.get(i).get(y).getHealth() + "HP" +
+                                    "," + crew.get(i).get(y).getStrength() + "STR" + ")" + " vs " + crew.get(i + 1).get(y).getName() + "(" +
+                                    "" + crew.get(i + 1).get(y).getHealth() + "HP," + crew.get(i + 1).get(y).getStrength() + "STR" + ")" + "\n");
 
-                        Ateam.get(i).fight(Bteam.get(i));
-
-                        if (Ateam.get(i) instanceof Captain) {
-                            if (Ateam.get(i).getHealth() < 1) {
-                                isATeamCaptainLive = false;
+                            crew.get(i).get(y).fight(crew.get(i + 1).get(y));
+                            if (crew.get(i).get(y) instanceof Captain) {
+                                if (crew.get(i).get(y).getHealth() < 1) {
+                                    isATeamCaptainLive = false;
+                                }
                             }
-                        }
-                        if (Bteam.get(i) instanceof Captain) {
-                            if (Bteam.get(i).getHealth() < 1) {
-                                isBTeamCaptainLive = false;
+                            if (crew.get(i + 1).get(y) instanceof Captain) {
+                                if (crew.get(i + 1).get(y).getHealth() < 1) {
+                                    isBTeamCaptainLive = false;
+                                }
                             }
                         }
                     }
+
                     if (!isATeamCaptainLive && !isBTeamCaptainLive) {
                         System.out.println();
                         System.out.println("Both captains died this round, so there are no winners, it's a tie!");
@@ -251,10 +238,8 @@ public class Battlefield {
             }
             while (isATeamCaptainLive && isBTeamCaptainLive);
             printCrewMembers();
-
         }
     }
-
 
     public void bigBattle() {
         FootSoldierFight(navalBattle());
