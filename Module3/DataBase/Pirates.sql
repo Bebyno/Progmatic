@@ -20,6 +20,7 @@ status ENUM(
     'NORMAL',
     'STRONG',
     'CAPTAIN'),
+    crew_id INT,
     PRIMARY KEY (pirate_id)
     /*
     rumOwned INT DEFAULT -1,
@@ -71,20 +72,30 @@ SELECT pirate_name FROM pirate WHERE pirate.status = 4 / 'CAPTAIN'
 
 */
 
-INSERT INTO pirate(pirate_name,drunkLVL,status) VALUES
-('James',1,2),
-('Joe',3,1),
-('Will',2,3),
-('Jim',1,1),
-('BlackBeard',1,4);
+INSERT INTO pirate(pirate_name,drunkLVL,status,crew_id) VALUES
+('James',1,2,1),
+('Joe',3,1,1),
+('Will',2,3,1),
+('Bill',1,2,1),
+('Joly',1,2,1),
+('Jack',4,1,1),
+('BlackBeard',1,4,1),
+('Bob',1,2,2),
+('Zoro',3,1,2),
+('Brad',2,3,2),
+('Aladin',1,2,2),
+('Lajcsi',1,2,2),
+('Wilmos',4,1,2),
+('IronBeard',1,4,2);
+
 
 INSERT INTO ship(ship_id,ship_name,state) VALUES
 (1,'Black Pearl',1),
 (2,'White Pearl',1);
 
 INSERT INTO captain(pirate_id,rumOwned,ship_id) VALUES 
-(5,10,2),
-(4,null,1);
+(7,3,2),
+(14,4,1);
 
 
 SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id,ship.ship_name
