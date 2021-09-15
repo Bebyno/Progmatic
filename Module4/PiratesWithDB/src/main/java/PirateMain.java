@@ -7,14 +7,9 @@ public class PirateMain {
 
 
     public void start() {
-        // battlefield.bigBattle();
-
         if (dbEngine.isConnected()) {
         /*    Pirate pirate = dbEngine.findPirateByName("Jim");
             System.out.println(pirate.getName() + " " + pirate.getDrunkness() + " " + pirate.isCanFight());*/
-
-         //   dbEngine.ListAllShipBad(dbEngine.ListAllPirate());
-       //     dbEngine.ShipsFromDB();
 
             battlefield.gettingTheShipsFromDB(dbEngine.ShipsFromDB());
             battlefield.bigBattle();

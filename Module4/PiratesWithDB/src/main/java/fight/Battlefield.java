@@ -15,10 +15,8 @@ public class Battlefield {
     }
 
     List<List<Pirate>> crew = new ArrayList<>();
-
     List<Captain> captainList = new ArrayList<>();
     List<Pirate> allPirate = new ArrayList<>();
-
     Ship shipTeamA;
     Ship shipTeamB;
 
@@ -120,9 +118,6 @@ public class Battlefield {
 
     public void fightablePirateHandling() {
         List<Pirate> deadTeamMember = new ArrayList<>();
-        List<Pirate> deadBTeam = new ArrayList<>();
-
-
         for (List<Pirate> pirates : crew) {
             for (Pirate pirate : pirates) {
                 if (pirate.getHealth() < 1 || !pirate.isCanFight()) {
