@@ -1,0 +1,16 @@
+-Creating database
+
+-enums = userAccess
+
+Van egy főoladl, ahol a felhasználók blogjai vannak (tegyük listába a felhasználókat
+és printeljük ki a blogcímeiket).-> tehát, legyen egy főoldal, ahol pl 'Misi blogjára', 'Márk blogja'
+feliratok vannak, ha ráklikkelsz az 1ikre akkor tovább lép az alcímekre, pl Történelem, Állatok, Hétköznapok
+tehát a tittle-öket dobja fel, és azon belül lenne egy leírás ami alatt a komment szekc. .
+
+database-> user és a blog join, - mivel minden összefügg (user->blog-altblog->comment) tegyük az egészet
+egy nagy JOIN-ba? és onnan olvassam ki minden adatot?
+
+Acces ? DB-ből vagy utólag set-tel?
+
+User,Moderátor, admin, -> heritage vagy spec field?
+regisztráció utáni komment engedés?  boolen registered = true;
