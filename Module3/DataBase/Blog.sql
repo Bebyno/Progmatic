@@ -32,12 +32,13 @@ color ENUM(
 'BLUE'
 ),
 backgroundPic BLOB,
+whosBlogId INT,
 PRIMARY KEY(SablonID)
 );
 
 CREATE TABLE userBlogs(		-- Több blog lehet --
 BlogID INT UNSIGNED,
-name VARCHAR(30),
+blogName VARCHAR(30),
 PRIMARY KEY(BlogID)
 );
 
@@ -45,12 +46,14 @@ CREATE TABLE userBlogWrites(	-- blogon belül --
 WriteID INT UNSIGNED,
 text VARCHAR(500),
 picture BLOB,
+BlogWriteID INT,
 PRIMARY KEY(WriteID)
 );
 
 CREATE TABLE comments(
 CommentID INT UNSIGNED,
 text VARCHAR(500),
+PplcommentID INT,
 PRIMARY KEY(CommentID)
 );
 
@@ -97,16 +100,31 @@ INSERT INTO registration(name,password,email,birth)VALUES
 ('Will','12345','Will@freemail','1991.01.17'),
 ('Boldizsar','asdasd','troll@trollokEverywhere','1500.01.01');
 
-INSERT INTO blogSablon(SablonID,blogSablonName,category,color) VALUES
-(1,'Animals','dogs','RED'),
-(4,'Hobby','music','GREEN'),
-(3,'Histroy','II. World war','blue');
+INSERT INTO blogSablon(SablonID,blogSablonName,category,color,whosBlogId) VALUES
+(1,'Animals','dogs','RED',1),
+(2,'Hobby','music','GREEN',1),
+(3,'Histroy','II. World war','blue',2),
+(4,'Cooking','Spageti','red',3);
 
-INSERT INTO userBlogs(BlogID,name) VALUES
-('1','Animals'),
-('2','Histroy');
+INSERT INTO userBlogs(BlogID,blogName) VALUES
+('1','Johans blog'),
+('3','Boldi blog'),
+('2','Wills blog');
 
-SELECT registration.*, userBlogs.name FROM registration Left JOIN userBlogs ON registration.RegID = userBlogs.BlogID;
+
+SELECT registration.*, userBlogs.blogName, blogSablon.*,userBlogWrites.* FROM registration
+ LEFT JOIN userBlogs ON registration.RegID = userBlogs.BlogID
+ LEFT JOIN blogSablon ON userBlogs.BlogID = blogSablon.whosBlogId
+ LEFT JOIN userBlogWrites ON userBlogs.BlogID = userBlogWrites.WriteID
+ LEFT JOIN comments ON userBlogWrites.WriteID = comments.PplcommentID
+
+ 
+ 
+ 
+/*
+SELECT blogSablon.* FROM blogSablon Left JOIN userBlogs ON blogSablon.SablonID = userBlogs.BlogID;
+SELECT userBlogs.* FROM userBlogs Left JOIN blogSablon ON blogSablon.whosBlogId = userBlogs.blogID;
+*/
 
 /*
 SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id,ship.ship_name
@@ -114,7 +132,8 @@ FROM pirate
 LEFT JOIN captain ON pirate.pirate_id = captain.pirate_id
 LEFT JOIN ship ON captain.ship_id = ship.ship_id;*/
 
-
+/*
 Select * from registration;
 Select * from blogSablon;
 Select * from userBlogs
+*/
