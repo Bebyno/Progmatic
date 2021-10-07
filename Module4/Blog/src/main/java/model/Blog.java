@@ -2,15 +2,23 @@ package model;
 
 public class Blog {
     private Integer id;
-    private Integer writedID;
+    private Integer writerID;
     private String writerText;
+    private String title;
 
     private String comments;
 
-    public Blog(Integer id, String text, Integer writedID) {
+    public Blog(Integer id, String text,String title, Integer writerID) {
         this.id = id;
         this.writerText = text;
-        this.writedID = writedID;
+        this.title = title;
+        this.writerID = writerID;
+    }
+
+    public Blog(Integer id, String title, Integer writerID) {
+        this.id = id;
+        this.title = title;
+        this.writerID = writerID;
     }
 
     public Blog(String category) {
@@ -39,5 +47,13 @@ public class Blog {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Integer getWriterID() {
+        return writerID;
     }
 }

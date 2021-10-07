@@ -2,10 +2,7 @@ package dataBase;
 
 import enums.Access;
 import enums.Color;
-import model.Blog;
-import model.Blogger;
-import model.Sablon;
-import model.User;
+import model.*;
 
 import java.sql.*;
 import java.sql.Date;
@@ -133,7 +130,7 @@ public class DBEngine {
     }
 
     public List<Blog> writerBlogs(int num) {
-        String query = "SELECT * FROM userBlogWrites WHERE BlogWriteID = ?";
+        String query = "SELECT * FROM moreEntryInTheSameBlog WHERE BlogWriteID = ?";
         List<Blog> blogs = new ArrayList<>();
 
         try {
@@ -142,9 +139,10 @@ public class DBEngine {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
 
-                Integer blogID = resultSet.getInt("WriteID");
-                Integer writerID = resultSet.getInt("BlogWriteID");
+                Integer blogID = resultSet.getInt("entryID");
                 String text = resultSet.getString("text");
+                Integer writerID = resultSet.getInt("BlogWriteID");
+            //    String text = resultSet.getString("text");
 
                 Blog blog = new Blog(blogID,text,writerID);
                 blogs.add(blog);
@@ -155,6 +153,119 @@ public class DBEngine {
         }
         return blogs;
     }
+
+//blogallentry
+    public int selectedBlogID(String blogName) {
+        String query = "SELECT * FROM userBlogWrites WHERE title = ?";
+
+        Blog result = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, blogName);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Integer blogID = resultSet.getInt("WriteID");
+                String title = resultSet.getString("title");
+                Integer writerID = resultSet.getInt("BlogWriteID");
+
+                result = new Blog(blogID,title,writerID);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result.getWriterID();
+    }
+
+public List<BlogEntrys>  moreEntryInBlog(int id){
+    String query = "SELECT * FROM moreEntryInTheSameBlog WHERE BlogWriteID = ?";
+
+    List<BlogEntrys> blogEntrys = new ArrayList<>();
+
+    try {
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setLong(1, id);
+        ResultSet resultSet = ps.executeQuery();
+        while (resultSet.next()) {
+
+            Integer blogID = resultSet.getInt("entryID");
+            String text = resultSet.getString("text");
+            Integer writerID = resultSet.getInt("BlogWriteID");
+
+            BlogEntrys entrys = new BlogEntrys(blogID,text,writerID);
+            blogEntrys.add(entrys);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return blogEntrys;
+}
+
+// SSS
+
+    public int selectedCommentID(int id) {
+        String query = "SELECT * FROM moreEntryInTheSameBlog WHERE entryID = ?";
+
+        Blog result = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Integer entryID = resultSet.getInt("entryID");
+                String text = resultSet.getString("text");
+                Integer writerID = resultSet.getInt("BlogWriteID");
+
+                result = new Blog(entryID,text,writerID);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result.getId();
+    }
+
+    public List<Comment> EntryInBlog(int id){
+        String query = "SELECT * FROM comments WHERE PplcommentID = ?";
+
+        List<Comment> comments = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+
+                Integer commentID = resultSet.getInt("CommentID");
+                String commentText = resultSet.getString("commentText");
+                Integer PplcommentID = resultSet.getInt("PplcommentID");
+
+                Comment entryComment = new Comment(commentID,PplcommentID,commentText);
+                comments.add(entryComment);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -194,7 +305,7 @@ public class DBEngine {
         return users;
     }
 
-    public Map<Blogger, Blog> userBlogs() {
+    public Map<BlogEntrys, Blog> userBlogs() {
 
         String query =
                 " SELECT userBlogs.*,userBlogWrites.text,userBlogWrites.BlogWriteID" +
@@ -209,7 +320,7 @@ public class DBEngine {
 */
 
 
-        Map<Blogger, Blog> userBlogs = new HashMap<>();
+        Map<BlogEntrys, Blog> userBlogs = new HashMap<>();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
@@ -222,10 +333,10 @@ public class DBEngine {
             Integer writerID = resultSet.getInt("BlogWriteID");
             String text = resultSet.getString("text");
 
-            Blogger blogger = new Blogger(bloggerID, whosBlog);
-            Blog blog = new Blog(blogID, text, writerID);
+      //      BlogEntrys blogger = new BlogEntrys(bloggerID, whosBlog);
+         //   Blog blog = new Blog(blogID, text, writerID);
 
-            userBlogs.put(blogger, blog);
+     //       userBlogs.put(blogger, blog);
 
 /*
         //comments
