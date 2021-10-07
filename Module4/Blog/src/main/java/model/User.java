@@ -12,15 +12,19 @@ public class User {
     private Date birth;
 
     private boolean registered;
-    private Access access;      // vagy örölődés? vagy fieldek?
+    private Access access;
+
+    private Blog blog;
 
 
-    public User(Integer id,String name,String password, String email, Date birth) {
+
+    public User(Integer id,String name,String password, String email, Date birth, Access access) {
         this.ID = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.birth = birth;
+        this.access = access;
         this.registered = true;
     }
 
@@ -70,5 +74,13 @@ public class User {
 
     public void setAccess(Access access) {
         this.access = access;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 }
