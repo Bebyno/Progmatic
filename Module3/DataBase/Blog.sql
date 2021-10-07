@@ -4,23 +4,20 @@ CREATE DATABASE Blog;
 
 USE Blog;
 
-CREATE TABLE registration(
+CREATE TABLE users(
 RegID INT UNSIGNED AUTO_INCREMENT,
 name VARCHAR(50),
 password VARCHAR(50),
 email VARCHAR(30) UNIQUE,
 birth DATE,
-PRIMARY KEY(RegID) 				-- email cím legyen--
-);
-
-CREATE TABLE permission(	-- is it necessary? heritage--
-PerID INT UNSIGNED,
-ranks ENUM(
+roll ENUM(					
 'USER',
 'MODERATOR',
-'ADMIN'),
-PRIMARY KEY(PerID)
+'ADMIN')
+DEFAULT 'USER',
+PRIMARY KEY(RegID) 				-- email cím legyen??--
 );
+
 
 CREATE TABLE blogSablon(
 SablonID INT,
@@ -36,46 +33,42 @@ whosBlogId INT,
 PRIMARY KEY(SablonID)
 );
 
-CREATE TABLE userBlogs(		-- Több blog lehet --
-BlogID INT UNSIGNED,
-blogName VARCHAR(30),
-PRIMARY KEY(BlogID)
-);
+
 
 CREATE TABLE userBlogWrites(	-- blogon belül --
 WriteID INT UNSIGNED,
-text VARCHAR(500),
+title VARCHAR(20),
 picture BLOB,
-BlogWriteID INT,
-PRIMARY KEY(WriteID)
+BlogWriteID INT UNSIGNED,
+PRIMARY KEY(WriteID),
+FOREIGN KEY (BlogWriteID) REFERENCES users(RegID)
+);
+CREATE TABLE moreEntryInTheSameBlog(
+entryID INT UNSIGNED,
+text VARCHAR(500),
+BlogWriteID INT UNSIGNED,
+PRIMARY KEY(entryID),
+FOREIGN KEY (BlogWriteID) REFERENCES userBlogWrites(WriteID)
 );
 
 CREATE TABLE comments(
 CommentID INT UNSIGNED,
-text VARCHAR(500),
-PplcommentID INT,
-PRIMARY KEY(CommentID)
+PplcommentID INT UNSIGNED,
+commentText VARCHAR(500),
+PRIMARY KEY(CommentID),
+FOREIGN KEY (PplcommentID) REFERENCES moreEntryInTheSameBlog(entryID)
 );
-
-CREATE TABLE registration_userBlogs(
+/*
+CREATE TABLE users_userBlogs(
 ID INT UNSIGNED AUTO_INCREMENT,
 RegID INT UNSIGNED,
 BlogID INT UNSIGNED,
 PRIMARY KEY (ID),
-FOREIGN KEY (RegID) REFERENCES registration(RegID),
+FOREIGN KEY (RegID) REFERENCES users(RegID),
 FOREIGN KEY (BlogID) REFERENCES userBlogs(BlogID)
 );
-
-
-CREATE TABLE registration_permission(
-ID INT UNSIGNED AUTO_INCREMENT,
-RegID INT UNSIGNED,
-PerID INT UNSIGNED,
-PRIMARY KEY (ID),
-FOREIGN KEY (RegID) REFERENCES registration(RegID),
-FOREIGN KEY (PerID) REFERENCES permission(PerID)
-);
-
+*/
+/*
 CREATE TABLE userBlogs_userBlogWrites(
 ID INT UNSIGNED AUTO_INCREMENT,
 BlogID INT UNSIGNED,
@@ -93,47 +86,41 @@ PRIMARY KEY (ID),
 FOREIGN KEY (WriteID) REFERENCES userBlogWrites(WriteID),
 FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
 );
+*/
 
-
-INSERT INTO registration(name,password,email,birth)VALUES
+INSERT INTO users(name,password,email,birth)VALUES
 ('Johan','admin','asd@aaaa','2011.04.27'),
 ('Will','12345','Will@freemail','1991.01.17'),
 ('Boldizsar','asdasd','troll@trollokEverywhere','1500.01.01');
 
 INSERT INTO blogSablon(SablonID,blogSablonName,category,color,whosBlogId) VALUES
 (1,'Animals','dogs','RED',1),
-(2,'Hobby','music','GREEN',1),
+(2,'Hobby','music','GREEN',1),				
 (3,'Histroy','II. World war','blue',2),
 (4,'Cooking','Spageti','red',3);
 
-INSERT INTO userBlogs(BlogID,blogName) VALUES
-('1','Johans blog'),
-('3','Boldi blog'),
-('2','Wills blog');
 
 
-SELECT registration.*, userBlogs.blogName, blogSablon.*,userBlogWrites.* FROM registration
- LEFT JOIN userBlogs ON registration.RegID = userBlogs.BlogID
- LEFT JOIN blogSablon ON userBlogs.BlogID = blogSablon.whosBlogId
- LEFT JOIN userBlogWrites ON userBlogs.BlogID = userBlogWrites.WriteID
- LEFT JOIN comments ON userBlogWrites.WriteID = comments.PplcommentID
+INSERT INTO userBlogWrites(WriteID,title,BlogWriteID) VALUES
+('1',"dogs",1),
+('2',"cats",2),
+('3',"natives",2);
 
- 
- 
- 
-/*
-SELECT blogSablon.* FROM blogSablon Left JOIN userBlogs ON blogSablon.SablonID = userBlogs.BlogID;
-SELECT userBlogs.* FROM userBlogs Left JOIN blogSablon ON blogSablon.whosBlogId = userBlogs.blogID;
-*/
+INSERT INTO moreEntryInTheSameBlog(entryID,text,BlogWriteID) VALUES
+(1,"Lie!",2),
+(2,"cats are funny ",2),
+(3,"cats are asdasdavevd!",2),
+(4,"meow",3);
 
-/*
-SELECT pirate.*,captain.pirate_id AS is_captain,captain.rumOwned,captain.ship_id,ship.ship_name
-FROM pirate
-LEFT JOIN captain ON pirate.pirate_id = captain.pirate_id
-LEFT JOIN ship ON captain.ship_id = ship.ship_id;*/
+INSERT INTO comments(CommentID,commentText,PplcommentID) VALUES
+('1',"vau",1),
+('2',"vausss",1),
+('3',"meow",3);
 
-/*
-Select * from registration;
-Select * from blogSablon;
-Select * from userBlogs
-*/
+
+SELECT users.name AS Blogger,userBlogWrites.title AS BloggTitle,userBlogWrites.BlogWriteID AS BloggersID,
+moreEntryInTheSameBlog.text AS Blog_text,comments.commentText,comments.PplcommentID AS CommentID 
+FROM users
+LEFT JOIN userBlogWrites ON users.RegID = userBlogWrites.BlogWriteID
+LEFT JOIN moreEntryInTheSameBlog ON userBlogWrites.WriteID = moreEntryInTheSameBlog.BlogWriteID
+LEFT JOIN comments ON moreEntryInTheSameBlog.entryID = comments.PplcommentID;
