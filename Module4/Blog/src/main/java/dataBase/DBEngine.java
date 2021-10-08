@@ -1,6 +1,6 @@
 package dataBase;
 
-import enums.Access;
+import enums.Role;
 import model.*;
 
 import java.sql.*;
@@ -36,14 +36,14 @@ public class DBEngine {
         }
     }
 
-    public List<User> findUserByRoll(Access roll) {
-        String query = "SELECT * FROM users WHERE roll = ?";
+    public List<User> findUserByRole(Role role) {
+        String query = "SELECT * FROM users WHERE role = ?";
         User result = null;
         List<User> usersByRoll = new ArrayList<>();
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, String.valueOf(roll));
+            ps.setString(1, String.valueOf(role));
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
@@ -52,11 +52,11 @@ public class DBEngine {
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
                 Date birth = resultSet.getDate("birth");
-                String rollFromDB = resultSet.getString("roll").toUpperCase();
-                Access access = Access.valueOf(rollFromDB);
+                String rollFromDB = resultSet.getString("role").toUpperCase();
+                Role userrole = Role.valueOf(rollFromDB);
 
 
-                result = new User(ID, name, password, email, birth, access);
+                result = new User(ID, name, password, email, birth, userrole);
                 usersByRoll.add(result);
             }
 
@@ -81,11 +81,11 @@ public class DBEngine {
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
                 Date birth = resultSet.getDate("birth");
-                String rollFromDB = resultSet.getString("roll").toUpperCase();
-                Access access = Access.valueOf(rollFromDB);
+                String rollFromDB = resultSet.getString("role").toUpperCase();
+                Role role = Role.valueOf(rollFromDB);
 
 
-                result = new User(ID, name, password, email, birth, access);
+                result = new User(ID, name, password, email, birth, role);
                 //System.out.println(user.getName());
             }
 
@@ -113,11 +113,11 @@ public class DBEngine {
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
                 Date birth = resultSet.getDate("birth");
-                String rollFromDB = resultSet.getString("roll").toUpperCase();
-                Access access = Access.valueOf(rollFromDB);
+                String rollFromDB = resultSet.getString("role").toUpperCase();
+                Role role = Role.valueOf(rollFromDB);
 
 
-                result = new User(ID, name, password, email, birth, access);
+                result = new User(ID, name, password, email, birth, role);
                 //System.out.println(user.getName());
             }
 
@@ -255,6 +255,45 @@ public List<BlogEntry>  moreEntryInBlog(int id){
         }
         return comments;
     }
+
+
+
+    //logg
+
+
+    public User login(String username, String pass){
+        // átad felhasználónév- jelszó ->ezzel a párossal lekérdezed, és visszaadod, és eltárolod.
+
+        String query = "SELECT * FROM users WHERE name = ? AND password = ?";
+
+        User result = null;
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, pass);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Integer ID = resultSet.getInt("RegID");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                Date birth = resultSet.getDate("birth");
+                String rollFromDB = resultSet.getString("role").toUpperCase();
+                Role role = Role.valueOf(rollFromDB);
+
+
+                result = new User(ID, name, password, email, birth, role);
+                //System.out.println(user.getName());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 
 
 /*

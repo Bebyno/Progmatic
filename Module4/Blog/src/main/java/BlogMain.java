@@ -1,5 +1,8 @@
+import Exceptions.NotAuthorizedException;
 import dataBase.DBEngine;
-import enums.Access;
+import enums.Role;
+import services.LoginManager;
+import services.UserManager;
 import view.Printer;
 
 public class BlogMain {
@@ -9,7 +12,7 @@ public class BlogMain {
     public void DBTasks() {
         if (dbEngine.isConnected()) {
             System.out.println("Task1:");
-            printer.printUsersByRoll(dbEngine.findUserByRoll(Access.USER));
+            printer.printUsersByRoll(dbEngine.findUserByRole(Role.USER));
             System.out.println();
             System.out.println("Task2:");
             printer.printSelectedUser(dbEngine.selectedUserFromDB("Johan"));
@@ -27,9 +30,15 @@ public class BlogMain {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotAuthorizedException {
         BlogMain blogMain = new BlogMain();
         blogMain.DBTasks();
+//blogMain.dbEngine.isConnected();
+        LoginManager loginManager = new LoginManager(blogMain.dbEngine);
+        UserManager userManager = new UserManager(loginManager);
+       // loginManager.login("Will", "12345");
+        loginManager.login("Leader", "Admin");
+        userManager.getAllUserInfo();
 
     }
 }

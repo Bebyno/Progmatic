@@ -1,6 +1,6 @@
 package model;
 
-import enums.Access;
+import enums.Role;
 
 import java.util.Date;
 
@@ -12,19 +12,19 @@ public class User {
     private Date birth;
 
     private boolean registered;
-    private Access access;
+    private Role role;
 
     private Blog blog;
 
 
 
-    public User(Integer id,String name,String password, String email, Date birth, Access access) {
+    public User(Integer id,String name,String password, String email, Date birth, Role role) {
         this.ID = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.birth = birth;
-        this.access = access;
+        this.role = role;
         this.registered = true;
     }
 
@@ -68,12 +68,12 @@ public class User {
         this.birth = birth;
     }
 
-    public Access getAccess() {
-        return access;
+    public Role getRole() {
+        return role;
     }
 
-    public void setAccess(Access access) {
-        this.access = access;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Blog getBlog() {
@@ -91,30 +91,6 @@ public class User {
     public void setRegistered(boolean registered) {
         this.registered = registered;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

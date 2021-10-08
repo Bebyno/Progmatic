@@ -1,6 +1,6 @@
 package enums;
 
-public enum Access {
+public enum Role {
 
     USER,
     MODERATOR,

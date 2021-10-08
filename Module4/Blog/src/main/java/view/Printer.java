@@ -22,7 +22,7 @@ public class Printer {
                     System.out.println("PW: " + user.getPassword());
                     System.out.println("Email: " + user.getEmail());
                     System.out.println("Birth: " + user.getBirth());
-                    System.out.println("roll: " + user.getAccess());
+                    System.out.println("roll: " + user.getRole());
                     System.out.println("____");
 
                 }
@@ -37,7 +37,7 @@ public class Printer {
         System.out.println("PW: " + user.getPassword());
         System.out.println("Email: " + user.getEmail());
         System.out.println("Birth: " + user.getBirth());
-        System.out.println("roll: " + user.getAccess());
+        System.out.println("roll: " + user.getRole());
 
     }
 
