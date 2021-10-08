@@ -1,12 +1,12 @@
 package model;
 
-public class BlogEntrys {
+public class BlogEntry {
 
 private Integer entryID;
 private String text;
 private Integer writerID;
 
-    public BlogEntrys(Integer entryID, String text, Integer writerID) {
+    public BlogEntry(Integer entryID, String text, Integer writerID) {
         this.entryID = entryID;
         this.text = text;
         this.writerID = writerID;

@@ -2,7 +2,7 @@ package view;
 
 import dataBase.DBEngine;
 import model.Blog;
-import model.BlogEntrys;
+import model.BlogEntry;
 import model.Comment;
 import model.User;
 
@@ -50,7 +50,7 @@ public class Printer {
         );
     }
 
-    public void printedSelectedBlogAllEntry(List<BlogEntrys> entrys) {
+    public void printedSelectedBlogAllEntry(List<BlogEntry> entrys) {
         System.out.println("Selected blog all entrys are: ");
         entrys.forEach(blog -> System.out.println(blog.getText()));
 

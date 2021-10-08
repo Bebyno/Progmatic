@@ -6,7 +6,7 @@ public class BlogMain {
     DBEngine dbEngine = new DBEngine();
     Printer printer = new Printer();
 
-    public void start() {
+    public void DBTasks() {
         if (dbEngine.isConnected()) {
             System.out.println("Task1:");
             printer.printUsersByRoll(dbEngine.findUserByRoll(Access.USER));
@@ -29,7 +29,7 @@ public class BlogMain {
 
     public static void main(String[] args) {
         BlogMain blogMain = new BlogMain();
-        blogMain.start();
+        blogMain.DBTasks();
 
     }
 }

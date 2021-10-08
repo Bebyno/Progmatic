@@ -1,7 +1,6 @@
 package dataBase;
 
 import enums.Access;
-import enums.Color;
 import model.*;
 
 import java.sql.*;
@@ -38,7 +37,7 @@ public class DBEngine {
     }
 
     public List<User> findUserByRoll(Access roll) {
-        String query = "SELECT * FROM " + DBHelper.TABLE_REG + " WHERE roll = ?";
+        String query = "SELECT * FROM users WHERE roll = ?";
         User result = null;
         List<User> usersByRoll = new ArrayList<>();
 
@@ -68,7 +67,7 @@ public class DBEngine {
     }
 
     public User selectedUserFromDB(String username) {
-        String query = "SELECT * FROM " + DBHelper.TABLE_REG + " WHERE name = ?";
+        String query = "SELECT * FROM users WHERE name = ?";
 
         User result = null;
         try {
@@ -100,7 +99,7 @@ public class DBEngine {
 
 
     public int selectedUserID(String username) {
-        String query = "SELECT * FROM " + DBHelper.TABLE_REG + " WHERE name = ?";
+        String query = "SELECT * FROM users WHERE name = ?";
 
         User result = null;
         try {
@@ -180,10 +179,10 @@ public class DBEngine {
         return result.getWriterID();
     }
 
-public List<BlogEntrys>  moreEntryInBlog(int id){
+public List<BlogEntry>  moreEntryInBlog(int id){
     String query = "SELECT * FROM moreEntryInTheSameBlog WHERE BlogWriteID = ?";
 
-    List<BlogEntrys> blogEntrys = new ArrayList<>();
+    List<BlogEntry> blogEntries = new ArrayList<>();
 
     try {
         PreparedStatement ps = connection.prepareStatement(query);
@@ -195,14 +194,14 @@ public List<BlogEntrys>  moreEntryInBlog(int id){
             String text = resultSet.getString("text");
             Integer writerID = resultSet.getInt("BlogWriteID");
 
-            BlogEntrys entrys = new BlogEntrys(blogID,text,writerID);
-            blogEntrys.add(entrys);
+            BlogEntry entrys = new BlogEntry(blogID,text,writerID);
+            blogEntries.add(entrys);
         }
 
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return blogEntrys;
+    return blogEntries;
 }
 
 // SSS
@@ -258,23 +257,7 @@ public List<BlogEntrys>  moreEntryInBlog(int id){
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
     public List<User> usersFromDB() {
         String query = "SELECT * FROM " + DBHelper.TABLE_REG;
 
@@ -314,10 +297,10 @@ public List<BlogEntrys>  moreEntryInBlog(int id){
 
         // comments.PplcommentID,comments.commentText
         //" LEFT JOIN comments ON userBlogWrites.WriteID = comments.PplcommentID;";
-/*
+*//*
     String query =
             "SELECT userBlogs.* FROM userBlogs";
-*/
+*//*
 
 
         Map<BlogEntrys, Blog> userBlogs = new HashMap<>();
@@ -338,11 +321,11 @@ public List<BlogEntrys>  moreEntryInBlog(int id){
 
      //       userBlogs.put(blogger, blog);
 
-/*
+*//*
         //comments
         Integer commentID = resultSet.getInt("CommentID");
         Integer PplcommentID = resultSet.getInt("PplcommentID");
-        String commentText = resultSet.getString("commentText");*/
+        String commentText = resultSet.getString("commentText");*//*
 
 
         } catch (SQLException e) {
@@ -467,14 +450,14 @@ public List<BlogEntrys>  moreEntryInBlog(int id){
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*userBlog.forEach((user,platform)->
+        *//*userBlog.forEach((user,platform)->
                 {
                     System.out.println(user.getName());
                     System.out.println(platform.getCategory());
                 }
-                );*/
+                );*//*
         return allUser;
-    }
+    }*/
 
 
 }
