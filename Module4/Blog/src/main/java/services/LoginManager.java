@@ -1,5 +1,6 @@
 package services;
 
+import Exceptions.NotAuthorizedException;
 import dataBase.DBEngine;
 import enums.Role;
 import model.User;
@@ -25,11 +26,13 @@ public class LoginManager {
     // akk beengedi az admin
 
 
-    public User login(String username, String pass){
-        return currentUser = dbEngine.login(username,pass);
+    public User login(String username, String pass) throws NotAuthorizedException{
+        currentUser = dbEngine.login(username,pass);
 
+        if (currentUser == null)
+            throw new NotAuthorizedException();
 
-
+        return currentUser;
     }
 }
 

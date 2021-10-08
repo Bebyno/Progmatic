@@ -5,6 +5,7 @@ import model.*;
 
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DBEngine {
@@ -51,7 +52,7 @@ public class DBEngine {
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                Date birth = resultSet.getDate("birth");
+                LocalDate birth = resultSet.getDate("birth").toLocalDate();
                 String rollFromDB = resultSet.getString("role").toUpperCase();
                 Role userrole = Role.valueOf(rollFromDB);
 
@@ -80,7 +81,7 @@ public class DBEngine {
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                Date birth = resultSet.getDate("birth");
+                LocalDate birth = resultSet.getDate("birth").toLocalDate();
                 String rollFromDB = resultSet.getString("role").toUpperCase();
                 Role role = Role.valueOf(rollFromDB);
 
@@ -98,7 +99,7 @@ public class DBEngine {
 
 
 
-    public int selectedUserID(String username) {
+    public int selectedUserIDToWritesBlog(String username) {
         String query = "SELECT * FROM users WHERE name = ?";
 
         User result = null;
@@ -112,7 +113,7 @@ public class DBEngine {
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                Date birth = resultSet.getDate("birth");
+                LocalDate birth = resultSet.getDate("birth").toLocalDate();
                 String rollFromDB = resultSet.getString("role").toUpperCase();
                 Role role = Role.valueOf(rollFromDB);
 
@@ -129,7 +130,7 @@ public class DBEngine {
     }
 
     public List<Blog> writerBlogs(int num) {
-        String query = "SELECT * FROM moreEntryInTheSameBlog WHERE BlogWriteID = ?";
+        String query = "SELECT * FROM userBlogWrites WHERE BlogWriteID = ?";
         List<Blog> blogs = new ArrayList<>();
 
         try {
@@ -138,8 +139,8 @@ public class DBEngine {
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
 
-                Integer blogID = resultSet.getInt("entryID");
-                String text = resultSet.getString("text");
+                Integer blogID = resultSet.getInt("WriteID");
+                String text = resultSet.getString("title");
                 Integer writerID = resultSet.getInt("BlogWriteID");
             //    String text = resultSet.getString("text");
 
@@ -154,7 +155,7 @@ public class DBEngine {
     }
 
 //blogallentry
-    public int selectedBlogID(String blogName) {
+    public int selectedBlogIDToMoreEntryInBlog(String blogName) {
         String query = "SELECT * FROM userBlogWrites WHERE title = ?";
 
         Blog result = null;
@@ -206,7 +207,7 @@ public List<BlogEntry>  moreEntryInBlog(int id){
 
 // SSS
 
-    public int selectedCommentID(int id) {
+    public int selectedCommentIDToEntryInBlog(int id) {
         String query = "SELECT * FROM moreEntryInTheSameBlog WHERE entryID = ?";
 
         Blog result = null;
@@ -256,13 +257,41 @@ public List<BlogEntry>  moreEntryInBlog(int id){
         return comments;
     }
 
+/*
+
+    public List<Blog> BlogsByName(int num) {
+        String query = "SELECT * FROM moreEntryInTheSameBlog WHERE BlogWriteID = ?";
+        List<Blog> blogs = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setLong(1, num);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+
+                Integer blogID = resultSet.getInt("entryID");
+                String text = resultSet.getString("text");
+                Integer writerID = resultSet.getInt("BlogWriteID");
+                //    String text = resultSet.getString("text");
+
+                Blog blog = new Blog(blogID,text,writerID);
+                blogs.add(blog);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return blogs;
+    }
+*/
+
 
 
     //logg
 
 
     public User login(String username, String pass){
-        // átad felhasználónév- jelszó ->ezzel a párossal lekérdezed, és visszaadod, és eltárolod.
+        // átad felhasználónév- jelszó ->ezzel a párossal lekérdez, és visszaad,.
 
         String query = "SELECT * FROM users WHERE name = ? AND password = ?";
 
@@ -278,7 +307,7 @@ public List<BlogEntry>  moreEntryInBlog(int id){
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                Date birth = resultSet.getDate("birth");
+                LocalDate birth = resultSet.getDate("birth").toLocalDate();
                 String rollFromDB = resultSet.getString("role").toUpperCase();
                 Role role = Role.valueOf(rollFromDB);
 

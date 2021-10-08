@@ -12,19 +12,19 @@ public class BlogMain {
     public void DBTasks() {
         if (dbEngine.isConnected()) {
             System.out.println("Task1:");
-            printer.printUsersByRoll(dbEngine.findUserByRole(Role.USER));
+            printer.printUsersAsRole(dbEngine.findUserByRole(Role.USER));
             System.out.println();
             System.out.println("Task2:");
             printer.printSelectedUser(dbEngine.selectedUserFromDB("Johan"));
             System.out.println();
             System.out.println("Task3:");
-            printer.printedSelectedUserBlogs(dbEngine.writerBlogs(dbEngine.selectedUserID("Will")));
+            printer.printedSelectedUserBlogs(dbEngine.writerBlogs(dbEngine.selectedUserIDToWritesBlog("Will")));
             System.out.println();
             System.out.println("Task4:");
-            printer.printedSelectedBlogAllEntry(dbEngine.moreEntryInBlog(dbEngine.selectedBlogID("cats")));
+            printer.printedSelectedBlogAllEntry(dbEngine.moreEntryInBlog(dbEngine.selectedBlogIDToMoreEntryInBlog("cats")));
             System.out.println();
             System.out.println("Task5:");
-            printer.printedSelectedBlogComments(dbEngine.EntryInBlog(dbEngine.selectedCommentID(1)));
+            printer.printedSelectedBlogComments(dbEngine.EntryInBlog(dbEngine.selectedCommentIDToEntryInBlog(1)));
 
         }
     }
@@ -32,13 +32,17 @@ public class BlogMain {
 
     public static void main(String[] args) throws NotAuthorizedException {
         BlogMain blogMain = new BlogMain();
+        Printer printer = new Printer();
         blogMain.DBTasks();
-//blogMain.dbEngine.isConnected();
+
         LoginManager loginManager = new LoginManager(blogMain.dbEngine);
-        UserManager userManager = new UserManager(loginManager);
+        UserManager userManager = new UserManager(loginManager, blogMain.dbEngine);
        // loginManager.login("Will", "12345");
+       // loginManager.login("Johan", "admin");
         loginManager.login("Leader", "Admin");
-        userManager.getAllUserInfo();
+      //  printer.printSelectedUser(userManager.getUserInfo("Will"));
+     //   printer.printSelectedUser(userManager.changeUserInfo("Will"));
+
 
     }
 }

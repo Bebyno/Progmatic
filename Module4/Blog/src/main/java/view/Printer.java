@@ -11,10 +11,10 @@ import java.util.List;
 public class Printer {
     // usereknek adni 1 boolean pl.: regisztálva, és akkor ha ez true akkor tud irni?
 
-    DBEngine dbEngine = new DBEngine();
+   // DBEngine dbEngine = new DBEngine();
 
 
-    public void printUsersByRoll(List<User> list) {
+    public void printUsersAsRole(List<User> list) {
         System.out.println("Selected users by roll are: ");
         list.forEach(user -> {
                     System.out.println("ID: " + user.getID());
@@ -61,5 +61,7 @@ public class Printer {
         comments.forEach(blog -> System.out.println(blog.getCommentText()));
 
     }
+
+
 
 }

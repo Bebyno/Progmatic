@@ -2,6 +2,7 @@ package model;
 
 import enums.Role;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class User {
@@ -9,7 +10,7 @@ public class User {
     private String name;
     private String password;
     private String email;
-    private Date birth;
+    private LocalDate birth;
 
     private boolean registered;
     private Role role;
@@ -18,7 +19,7 @@ public class User {
 
 
 
-    public User(Integer id,String name,String password, String email, Date birth, Role role) {
+    public User(Integer id,String name,String password, String email, LocalDate birth, Role role) {
         this.ID = id;
         this.name = name;
         this.password = password;
@@ -60,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
