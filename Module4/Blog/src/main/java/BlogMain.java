@@ -32,7 +32,9 @@ public class BlogMain {
     public static void main(String[] args) throws NotAuthorizedException {
         BlogMain blogMain = new BlogMain();
         Printer printer = new Printer();
-      //  blogMain.DBTasks();
+        blogMain.DBTasks();
+
+        //!bug  run-> edit config -> mindig kiszedi a hozzáférést!
 
         LoginManager loginManager = new LoginManager(blogMain.dbEngine);
         UserManager userManager = new UserManager(loginManager, blogMain.dbEngine);
