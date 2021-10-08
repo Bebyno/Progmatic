@@ -1,7 +1,6 @@
 package model;
 
 public class Comment {
-    // is it necessery?
 
 private Integer commentID;
 private Integer PplcommentID;
@@ -10,7 +9,7 @@ private String commentText;
 
     public Comment(Integer commentID, Integer pplcommentID, String commentText) {
         this.commentID = commentID;
-        PplcommentID = pplcommentID;
+        this.PplcommentID = pplcommentID;
         this.commentText = commentText;
     }
 

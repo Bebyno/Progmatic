@@ -8,10 +8,8 @@ import model.BlogEntry;
 import model.Comment;
 import model.User;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserManager {
@@ -23,10 +21,6 @@ public class UserManager {
         this.dbEngine = dbEngine;
     }
 
-    //itt lesz az admin és  a hívogatás (ellenörzések)
-
-    // tesztre meghívód ezeket a függvénykeet amkiet írsz
-
     public User getUserInfo(String name) throws NotAuthorizedException {
         User currentuser = this.loginManager.getCurrentUser();
         User selectedUser = dbEngine.selectedUserFromDB(name);
@@ -35,9 +29,7 @@ public class UserManager {
 
         } else if (currentuser == null || currentuser.getRole() != Role.ADMIN) {
             throw new NotAuthorizedException();
-
         }
-
         return selectedUser;
     }
 
@@ -47,7 +39,6 @@ public class UserManager {
         selecetedUser.setBirth(LocalDate.of(1991, 01, 01));
         return selecetedUser;
     }
-
 
     public List<BlogEntry> helperToEntrys(String name, String blogName, int entryID) throws NotAuthorizedException {
         List<BlogEntry> entrys = new ArrayList<>();
@@ -90,7 +81,6 @@ public class UserManager {
             if (entrys.get(i).getEntryID().equals(entryID)) {
                 deleteEntry.add(entrys.get(i));
             }
-
         }
         entrys.removeAll(deleteEntry);
         return entrys;
@@ -107,7 +97,4 @@ public class UserManager {
        }
         throw new NotAuthorizedException();
     }
-
-
-
 }

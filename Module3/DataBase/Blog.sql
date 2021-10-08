@@ -10,7 +10,7 @@ name VARCHAR(50),
 password VARCHAR(50),
 email VARCHAR(30) UNIQUE,
 birth DATE,
-roll ENUM(					
+role ENUM(					
 'USER',
 'MODERATOR',
 'ADMIN')
@@ -35,7 +35,7 @@ PRIMARY KEY(SablonID)
 
 
 
-CREATE TABLE userBlogWrites(	-- blogon belül --
+CREATE TABLE userBlogWrites(	
 WriteID INT UNSIGNED,
 title VARCHAR(20),
 picture BLOB,
@@ -88,10 +88,11 @@ FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
 );
 */
 
-INSERT INTO users(name,password,email,birth)VALUES
-('Johan','admin','asd@aaaa','2011.04.27'),
-('Will','12345','Will@freemail','1991.01.17'),
-('Boldizsar','asdasd','troll@trollokEverywhere','1500.01.01');
+INSERT INTO users(name,password,email,birth,role)VALUES
+('Johan','admin','asd@aaaa','2011.04.27','MODERATOR'),
+('Will','12345','Will@freemail','1991.01.17','USER'),
+('Boldizsar','asdasd','troll@trollokEverywhere','1500.01.01','USER'),
+('Leader','Admin','admin@admin','1999.01.01','ADMIN');
 
 INSERT INTO blogSablon(SablonID,blogSablonName,category,color,whosBlogId) VALUES
 (1,'Animals','dogs','RED',1),
@@ -104,13 +105,15 @@ INSERT INTO blogSablon(SablonID,blogSablonName,category,color,whosBlogId) VALUES
 INSERT INTO userBlogWrites(WriteID,title,BlogWriteID) VALUES
 ('1',"dogs",1),
 ('2',"cats",2),
-('3',"natives",2);
+('3',"natives",2),
+('4',"Blizzard",4);
 
 INSERT INTO moreEntryInTheSameBlog(entryID,text,BlogWriteID) VALUES
 (1,"Lie!",2),
 (2,"cats are funny ",2),
 (3,"cats are asdasdavevd!",2),
-(4,"meow",3);
+(4,"meow",3),
+(5,"pay",4);
 
 INSERT INTO comments(CommentID,commentText,PplcommentID) VALUES
 ('1',"vau",1),
@@ -118,7 +121,7 @@ INSERT INTO comments(CommentID,commentText,PplcommentID) VALUES
 ('3',"meow",3);
 
 
-SELECT users.name AS Blogger,userBlogWrites.title AS BloggTitle,userBlogWrites.BlogWriteID AS BloggersID,
+SELECT users.name AS Blogger,users.role,userBlogWrites.title AS BloggTitle,userBlogWrites.BlogWriteID AS BloggersID,
 moreEntryInTheSameBlog.text AS Blog_text,comments.commentText,comments.PplcommentID AS CommentID 
 FROM users
 LEFT JOIN userBlogWrites ON users.RegID = userBlogWrites.BlogWriteID

@@ -3,7 +3,6 @@ package model;
 import enums.Role;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class User {
     private Integer ID;
@@ -14,9 +13,6 @@ public class User {
 
     private boolean registered;
     private Role role;
-
-    private Blog blog;
-
 
 
     public User(Integer id,String name,String password, String email, LocalDate birth, Role role) {
@@ -75,14 +71,6 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
     }
 
     public boolean isRegistered() {

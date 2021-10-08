@@ -12,7 +12,7 @@ public class BlogMain {
     public void DBTasks() {
         if (dbEngine.isConnected()) {
             System.out.println("Task1:");
-            printer.printUsersAsRole(dbEngine.findUserByRole(Role.USER));
+            printer.printUsersAsRole(dbEngine.findUserAsRole(Role.USER));
             System.out.println();
             System.out.println("Task2:");
             printer.printSelectedUser(dbEngine.selectedUserFromDB("Johan"));
@@ -28,7 +28,6 @@ public class BlogMain {
 
         }
     }
-
 
     public static void main(String[] args) throws NotAuthorizedException {
         BlogMain blogMain = new BlogMain();
