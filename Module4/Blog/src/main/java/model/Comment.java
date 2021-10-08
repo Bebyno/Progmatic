@@ -14,6 +14,10 @@ private String commentText;
         this.commentText = commentText;
     }
 
+    public Comment(String commentText) {
+        this.commentText = commentText;
+    }
+
     public Integer getCommentID() {
         return commentID;
     }

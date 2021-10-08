@@ -23,4 +23,8 @@ private Integer writerID;
     public Integer getWriterID() {
         return writerID;
     }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

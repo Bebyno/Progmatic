@@ -33,16 +33,17 @@ public class BlogMain {
     public static void main(String[] args) throws NotAuthorizedException {
         BlogMain blogMain = new BlogMain();
         Printer printer = new Printer();
-        blogMain.DBTasks();
+      //  blogMain.DBTasks();
 
         LoginManager loginManager = new LoginManager(blogMain.dbEngine);
         UserManager userManager = new UserManager(loginManager, blogMain.dbEngine);
        // loginManager.login("Will", "12345");
        // loginManager.login("Johan", "admin");
         loginManager.login("Leader", "Admin");
+       // loginManager.login("Boldizsar", "asdasd");
       //  printer.printSelectedUser(userManager.getUserInfo("Will"));
      //   printer.printSelectedUser(userManager.changeUserInfo("Will"));
-
+    //printer.printedSelectedBlogComments(userManager.commentWrite(1,"Boring blog, delete pls"));
 
     }
 }

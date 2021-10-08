@@ -5,6 +5,7 @@ import dataBase.DBEngine;
 import enums.Role;
 import model.Blog;
 import model.BlogEntry;
+import model.Comment;
 import model.User;
 
 import java.text.DateFormat;
@@ -48,28 +49,65 @@ public class UserManager {
     }
 
 
-    public List<BlogEntry> modifyBlogEntrys(String name, String blogName) throws NotAuthorizedException {
+    public List<BlogEntry> helperToEntrys(String name, String blogName, int entryID) throws NotAuthorizedException {
         List<BlogEntry> entrys = new ArrayList<>();
-        User selecetedUser = getUserInfo(name);
-        // valszeg a fenti így most nem elsz jó mert nincs kezelve a moderátor és itt már kell
 
-        List<Blog> userBlogs = dbEngine.writerBlogs(selecetedUser.getID());    // ez 1 list blog
+        User currentuser = this.loginManager.getCurrentUser();
+        User selectedUser = dbEngine.selectedUserFromDB(name);
+        if (currentuser != null && selectedUser.getID().equals(currentuser.getID())) {
+
+        } else if (currentuser == null || !(currentuser.getRole() == Role.ADMIN || currentuser.getRole() == Role.MODERATOR)) {
+            throw new NotAuthorizedException();
+        }
+        List<Blog> userBlogs = dbEngine.writerBlogs(selectedUser.getID());
         for (int i = 0; i < userBlogs.size(); i++) {
             if (userBlogs.get(i).getTitle().equals(blogName)) {
                 entrys = dbEngine.moreEntryInBlog(dbEngine.selectedBlogIDToMoreEntryInBlog(userBlogs.get(i).getTitle()));
             }
         }
-/*
-        userBlogs.forEach(blog -> {
-            if (blog.getTitle().equals(blogName)){
-                entrys = dbEngine.moreEntryInBlog(dbEngine.selectedBlogIDToMoreEntryInBlog(blog.getTitle()));
-            }
-        });*/
-
-
-
         return entrys;
     }
+
+    public BlogEntry modifyBlogEntrys(String name, String blogName, int entryID, String entrysText) throws NotAuthorizedException {
+        List<BlogEntry> entrys = helperToEntrys(name, blogName, entryID);
+
+        BlogEntry currentEntry = null;
+        for (int i = 0; i < entrys.size(); i++) {
+            if (entrys.get(i).getEntryID().equals(entryID)) {
+                entrys.get(i).setText(entrysText);
+                currentEntry = entrys.get(i);
+            }
+
+        }
+        return currentEntry;
+    }
+
+    public List<BlogEntry> deleteBlogEntrys(String name, String blogName, int entryID) throws NotAuthorizedException {
+        List<BlogEntry> entrys = helperToEntrys(name, blogName, entryID);
+        List<BlogEntry> deleteEntry = new ArrayList<>();
+
+        for (int i = 0; i < entrys.size(); i++) {
+            if (entrys.get(i).getEntryID().equals(entryID)) {
+                deleteEntry.add(entrys.get(i));
+            }
+
+        }
+        entrys.removeAll(deleteEntry);
+        return entrys;
+    }
+
+    public List<Comment> commentWrite(int selectedBlog, String commentText) throws NotAuthorizedException {
+        User currentuser = this.loginManager.getCurrentUser();
+
+        if(currentuser.isRegistered()){
+          List<Comment> comments =  dbEngine.EntryInBlog(dbEngine.selectedCommentIDToEntryInBlog(selectedBlog));
+           Comment newComment = new Comment(commentText);
+           comments.add(newComment);
+           return comments;
+       }
+        throw new NotAuthorizedException();
+    }
+
 
 
 }
