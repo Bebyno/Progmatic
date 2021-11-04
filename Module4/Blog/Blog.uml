@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/Benji/Programozás/Progmatic/Module4/Blog</OriginalElement>
+  <nodes>
+    <node x="-53.79411764705884" y="-74.11764705882354">dataBase.DBEngine</node>
+    <node x="266.375" y="-50.294117647058826">model.User</node>
+    <node x="162.32352941176475" y="50.882352941176464">model.BlogEntry</node>
+    <node x="162.32352941176475" y="-30.14705882352939">model.Blog</node>
+    <node x="46.32352941176475" y="81.88235294117646">model.Comment</node>
+    <node x="368.90687340153454" y="417.0">services.UserManager</node>
+    <node x="331.9975543478261" y="-10.0">enums.Role</node>
+    <node x="642.6439578005113" y="417.0">services.UserManagerTest</node>
+    <node x="520.8951086956522" y="448.0">services.LoginManager</node>
+    <node x="890.4809782608695" y="292.4117647058823">BlogMain</node>
+    <node x="909.4809782608695" y="363.0">view.Printer</node>
+    <node x="-209.50971867007675" y="530.529411764706">enums.Color</node>
+    <node x="457.89510869565214" y="500.9411764705883">Exceptions.NotAuthorizedException</node>
+    <node x="-102.94117647058823" y="164.82352941176472">model.Sablon</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.User" target="enums.Role" relationship="DEPENDENCY">
+      <point x="20.0" y="-15.5" />
+      <point x="326.375" y="56.0" />
+      <point x="391.9975543478261" y="56.0" />
+      <point x="20.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManagerTest" target="services.LoginManager" relationship="TO_ONE">
+      <point x="54.0" y="-15.5" />
+      <point x="777.6439578005113" y="395.0" />
+      <point x="592.8951086956522" y="395.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="BlogMain" target="view.Printer" relationship="TO_ONE">
+      <point x="28.0" y="-15.5" />
+      <point x="974.4809782608695" y="219.0" />
+      <point x="955.9809782608695" y="219.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManager" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.5" />
+      <point x="436.90687340153454" y="297.0" />
+      <point x="376.1875" y="297.0" />
+      <point x="376.1875" y="142.0" />
+      <point x="415.7513586956521" y="142.0" />
+      <point x="415.7513586956521" y="132.0" />
+      <point x="286.375" y="132.0" />
+      <point x="-20.0" y="15.5" />
+    </edge>
+    <edge source="dataBase.DBEngine" target="model.User" relationship="DEPENDENCY">
+      <point x="42.375" y="-15.5" />
+      <point x="45.08088235294116" y="142.0" />
+      <point x="415.7513586956521" y="142.0" />
+      <point x="415.7513586956521" y="132.0" />
+      <point x="286.375" y="132.0" />
+      <point x="-20.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManager" target="dataBase.DBEngine" relationship="TO_ONE">
+      <point x="27.200000000000045" y="-15.5" />
+      <point x="464.1068734015346" y="307.0" />
+      <point x="417.42336956521734" y="307.0" />
+      <point x="417.42336956521734" y="224.0" />
+      <point x="424.56711956521735" y="224.0" />
+      <point x="424.56711956521735" y="214.0" />
+      <point x="2.7058823529411598" y="214.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="BlogMain" target="dataBase.DBEngine" relationship="TO_ONE">
+      <point x="-28.0" y="-15.5" />
+      <point x="918.4809782608695" y="224.0" />
+      <point x="424.56711956521735" y="224.0" />
+      <point x="424.56711956521735" y="214.0" />
+      <point x="2.7058823529411598" y="214.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManagerTest" target="services.UserManager" relationship="TO_ONE">
+      <point x="-54.0" y="-15.5" />
+      <point x="669.6439578005113" y="395.0" />
+      <point x="436.90687340153454" y="395.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.LoginManager" target="dataBase.DBEngine" relationship="TO_ONE">
+      <point x="-48.0" y="-15.5" />
+      <point x="544.8951086956522" y="224.0" />
+      <point x="424.56711956521735" y="224.0" />
+      <point x="424.56711956521735" y="214.0" />
+      <point x="2.7058823529411598" y="214.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManager" target="model.Comment" relationship="DEPENDENCY">
+      <point x="-54.39999999999998" y="-15.5" />
+      <point x="382.50687340153456" y="317.0" />
+      <point x="104.32352941176475" y="317.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManager" target="services.LoginManager" relationship="TO_ONE">
+      <point x="54.39999999999998" y="-15.5" />
+      <point x="491.3068734015345" y="180.5" />
+      <point x="592.8951086956522" y="180.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.LoginManager" target="model.User" relationship="DEPENDENCY">
+      <point x="0.0" y="-15.5" />
+      <point x="592.8951086956522" y="142.0" />
+      <point x="415.7513586956521" y="142.0" />
+      <point x="415.7513586956521" y="132.0" />
+      <point x="286.375" y="132.0" />
+      <point x="-20.0" y="15.5" />
+    </edge>
+    <edge source="model.User" target="enums.Role" relationship="TO_ONE">
+      <point x="-20.0" y="-15.5" />
+      <point x="286.375" y="56.0" />
+      <point x="351.9975543478261" y="56.0" />
+      <point x="-20.0" y="15.5" />
+    </edge>
+    <edge source="dataBase.DBEngine" target="model.BlogEntry" relationship="DEPENDENCY">
+      <point x="-14.125" y="-15.5" />
+      <point x="-11.41911764705884" y="132.0" />
+      <point x="218.82352941176475" y="132.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.LoginManager" target="model.User" relationship="TO_ONE">
+      <point x="48.0" y="-15.5" />
+      <point x="640.8951086956522" y="224.0" />
+      <point x="677.8951086956522" y="224.0" />
+      <point x="677.8951086956522" y="132.0" />
+      <point x="326.375" y="132.0" />
+      <point x="20.0" y="15.5" />
+    </edge>
+    <edge source="dataBase.DBEngine" target="model.Comment" relationship="DEPENDENCY">
+      <point x="-42.375" y="-15.5" />
+      <point x="-39.66911764705884" y="142.0" />
+      <point x="104.32352941176475" y="142.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="model.Sablon" target="enums.Color" relationship="TO_ONE">
+      <point x="0.0" y="-15.5" />
+      <point x="-54.94117647058823" y="553.0" />
+      <point x="-166.00971867007675" y="553.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="dataBase.DBEngine" target="model.Blog" relationship="DEPENDENCY">
+      <point x="14.125" y="-15.5" />
+      <point x="16.83088235294116" y="137.0" />
+      <point x="202.82352941176475" y="137.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManagerTest" target="dataBase.DBEngine" relationship="TO_ONE">
+      <point x="0.0" y="-15.5" />
+      <point x="723.6439578005113" y="395.0" />
+      <point x="438.4809782608695" y="395.0" />
+      <point x="438.4809782608695" y="224.0" />
+      <point x="424.56711956521735" y="224.0" />
+      <point x="424.56711956521735" y="214.0" />
+      <point x="2.7058823529411598" y="214.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="services.UserManager" target="model.BlogEntry" relationship="DEPENDENCY">
+      <point x="-27.200000000000045" y="-15.5" />
+      <point x="409.7068734015345" y="307.0" />
+      <point x="218.82352941176475" y="307.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.85" showDependencies="true" x="507.5" y="266.0" />
+  <SelectedNodes>
+    <node>model.Sablon</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
