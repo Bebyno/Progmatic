@@ -20,7 +20,7 @@ public class BlogController {
         this.blogService = blogService;
     }
 
-    @PostMapping("/newBlog")
+    @PostMapping("/blogs")
     public Blog creatingBlog(@RequestBody Blog newBlog) {
         return blogService.creatingBlog(newBlog);
     }

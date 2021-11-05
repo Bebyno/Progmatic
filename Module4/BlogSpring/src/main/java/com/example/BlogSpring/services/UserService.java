@@ -4,6 +4,7 @@ import com.example.BlogSpring.jpaRepo.BlogRepo;
 import com.example.BlogSpring.jpaRepo.UserRepo;
 import com.example.BlogSpring.models.Blog;
 import com.example.BlogSpring.models.User;
+import com.example.BlogSpring.models.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -77,9 +78,16 @@ public class UserService implements UserDetailsService {
 		return userRepo.save(newUser);
 	}
 
+    //for Admin test
+    @Transactional
+    public User regAdmin() {
 
+            String adminPw = encoder.encode("admin");
 
-    // TODO blogokra ugyan ezek
+            User admin = new User("admin", "admin", adminPw);
+            admin.setAuthority(UserRole.ADMIN);
+            return userRepo.save(admin);
+    }
 
 
 

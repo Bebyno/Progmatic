@@ -26,12 +26,12 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .and()
                 .authorizeRequests()
-               .antMatchers("/**").permitAll();
-
-               /*
+                //   .antMatchers("/**",).permitAll();
                 .antMatchers("/", "/home", "/register").permitAll()
-                .antMatchers("/users").hasAuthority("DELETE")
-                .antMatchers("/**").authenticated();*/
+                .antMatchers("/users").hasAuthority("CREATE_ALL")
+                .antMatchers("/blogs").hasAuthority("CREATE");
+
+
     }
 
 }
