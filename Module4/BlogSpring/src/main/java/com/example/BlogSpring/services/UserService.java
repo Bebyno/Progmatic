@@ -1,6 +1,8 @@
 package com.example.BlogSpring.services;
 
+import com.example.BlogSpring.jpaRepo.BlogRepo;
 import com.example.BlogSpring.jpaRepo.UserRepo;
+import com.example.BlogSpring.models.Blog;
 import com.example.BlogSpring.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,7 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepo userRepo;
+
 
     @Autowired
     public UserService(PasswordEncoder encoder) {
@@ -74,29 +77,6 @@ public class UserService implements UserDetailsService {
 		return userRepo.save(newUser);
 	}
 
-// TODO ez legyen egy admin bevésés
-    @Transactional
-    public boolean registerUsers() {
-        try {
-            String userPw = encoder.encode("user");
-            String adminPw = encoder.encode("admin");
-
-            /*
-            user.setPassword(encoder.encode(user.getPassword()));
-            em.persist(user);
-        */
-
-         /*  User user = new User("user", "user", userPw, UserRole.USER);
-            User admin = new User("admin", "admin", adminPw, UserRole.ADMIN);
-
-            em.persist(user);
-            em.persist(admin);
-*/
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
 
     // TODO blogokra ugyan ezek

@@ -16,11 +16,11 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
-    private UserService service;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserService service) {
-        this.service = service;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = {"/", "/home"})
@@ -30,17 +30,17 @@ public class UserController {
 
     @GetMapping("/user")
     public User getLoggedInUser() {
-        return service.getLoggedInUser();
+        return userService.getLoggedInUser();
     }
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return service.getAllUsers();
+        return userService.getAllUsers();
     }
 
     @GetMapping(value = {"/users/{id}"})
     public ResponseEntity<User> getById(@PathVariable long id) throws UserNotFoundException {
-        Optional<User> user = service.getOneUser(id);
+        Optional<User> user = userService.getOneUser(id);
         if (user.isPresent()) {
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
@@ -49,29 +49,11 @@ public class UserController {
     }
 
 
-
-    /*public User getOneUser(@PathVariable("id") long id) {
-        if (id != 0) {
-            return service.getOneUser(id);
-        }
-        return null;
-    }*/
-
-
-/*    @GetMapping("/register")
-    public String registerUser() {
-        boolean registered = service.registerUsers();
-        if (registered) {
-            return "ok";
-        }
-        return "not ok";
-    }*/
-
 @PostMapping(path = "/register",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> create(@RequestBody User newUser) throws ServerException {
-		User user = service.register(newUser);
+		User user = userService.register(newUser);
 		if (user == null) {
 			throw new ServerException();
 		}
@@ -79,6 +61,7 @@ public class UserController {
 			return new ResponseEntity<>(user, HttpStatus.CREATED);
 		}
 	}
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.BlogSpring.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ public class Blog {
     @Id
     @GeneratedValue
     private long id;
-
+    @JsonIgnore // enélkül  oda-vissza hívják egymást a blog-user -  végtelen recursuio
     @ManyToOne
     private User owner;
 
