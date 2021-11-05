@@ -32,6 +32,20 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/blogs").hasAuthority("CREATE");
 
 
+                /* own data check :
+
+                @Component("userSecurity")
+                public class UserSecurity {
+
+                public boolean hasUserId(Authentication authentication, Long userId) {
+            // do your check(s) here
+        }
+    }
+
+                .antMatchers("/users/{userId}/**")
+                .access("@userSecurity.hasUserId(authentication,#userId)");*/
+
+
     }
 
 }
