@@ -23,7 +23,7 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime writtenTime;
 
-    @OneToMany(mappedBy = "postTo")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "postTo")
     private List<Comment> comments;
 
 

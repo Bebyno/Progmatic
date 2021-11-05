@@ -24,11 +24,14 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .logout()
-                //.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .antMatchers("/users").authenticated();
+               .antMatchers("/**").permitAll();
+
+               /*
+                .antMatchers("/", "/home", "/register").permitAll()
+                .antMatchers("/users").hasAuthority("DELETE")
+                .antMatchers("/**").authenticated();*/
     }
 
 }

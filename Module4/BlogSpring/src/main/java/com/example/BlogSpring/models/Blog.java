@@ -23,7 +23,7 @@ public class Blog {
     private LocalDateTime creationTime;
     private boolean isHidden;
 
-    @OneToMany(mappedBy = "releasedBlog")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "releasedBlog")
     private List<Post> posts;
 
     public Blog() {

@@ -15,6 +15,7 @@ public class Comment {
     @GeneratedValue
     private long id;
 
+    //fetch = FetchType.EAGER, ?
     @ManyToOne
     private User author;
 
